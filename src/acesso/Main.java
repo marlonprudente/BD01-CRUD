@@ -22,11 +22,14 @@ public class Main {
 //2
         EntityManager em = emf.createEntityManager();
         Generos g = em.find(Generos.class, 2);
+        Livros l = em.find(Livros.class, 1);
 //3
         if (g != null) {
             System.out.println(g.getGENERO_ID() + ", " + g.getDEESCRICAO());
+            System.out.println(l.getTITULO_STRING() + " " + l.getDESCRICAO_STRING());
         } else {
             System.out.println("Não encontrado!");
         }
+        
     }
 }

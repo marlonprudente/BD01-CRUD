@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="pedidos_detalhe")
-public class PedidoDetalhes implements Serializable {
+public class PedidosDetalhe implements Serializable {
     @Id
     Integer DETALHE_ID;
     Integer PEDIDO_ID;

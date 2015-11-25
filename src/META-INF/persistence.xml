@@ -4,9 +4,9 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entidades.Generos</class>
     <class>entidades.Livros</class>
-    <class>entidades.PedidoDetalhes</class>
     <class>entidades.Pedidos</class>
     <class>entidades.Usuarios</class>
+    <class>entidades.PedidosDetalhe</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://200.134.10.33:3306/livraria1562339?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="banco120132"/>
