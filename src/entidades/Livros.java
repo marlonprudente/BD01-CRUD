@@ -32,39 +32,19 @@ public class Livros implements Serializable {
     public Integer getLIVRO_ID() {
         return LIVRO_ID;
     }
-    /*Retorna ID em String*/
-    public String getLIVRO_ID_STRING(){
-        return LIVRO_ID.toString();
-    }
-    
+
     public void setLIVRO_ID(Integer LIVRO_ID) {
         this.LIVRO_ID = LIVRO_ID;
     }
     
-    public String getTITULO_STRING(){
-        return TITULO.toString();
-    }
-    public String getAUTOR_STRING(){
-        return AUTOR.toString();
-    }
-    public String getEDITORA_STRING(){
-        return EDITORA.toString();
-    }
     public Integer getANO(){
         return ANO;
     }
-    public String getANO_STRING(){
-        return ANO.toString();
-    }
+
     public Integer getGENERO_ID(){
         return GENERO_ID;
     }
-    public String getGENERO_ID_STRING(){
-        return GENERO_ID.toString();
-    }
-    public String getDESCRICAO_STRING(){
-        return DESCRICAO.toString();
-    }
+
     public Double getPRECO(){
         return PRECO;
     }
@@ -80,4 +60,7 @@ public class Livros implements Serializable {
     public String getRESERVA_STRING(){
         return RESERVA.toString();
     }
+    
+    @Override
+    public String toString(){return LIVRO_ID+"-"+TITULO;}
 }

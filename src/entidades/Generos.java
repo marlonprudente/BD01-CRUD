@@ -30,13 +30,6 @@ public class Generos implements Serializable {
     }
         /*Retorna String do ID*/
 
-    public String getGENERO_ID_STRING(){
-        return GENERO_ID.toString();
-    }
-
-    public void setGENERO_ID(int GENERO_ID) {
-        this.GENERO_ID = GENERO_ID;
-    }
    public String getDEESCRICAO(){
        return DESCRICAO;
    }
@@ -47,4 +40,6 @@ public class Generos implements Serializable {
        this.DESCRICAO = DESCRICAO;
    }
     
+    @Override
+   public String toString(){return GENERO_ID+"-"+DESCRICAO;}   
 }

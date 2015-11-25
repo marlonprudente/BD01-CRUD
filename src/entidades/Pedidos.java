@@ -41,4 +41,6 @@ public class Pedidos implements Serializable {
         this.PEDIDO_ID = PEDIDO_ID;
     }
     
+    @Override
+    public String toString(){return PEDIDO_ID+"-"+USUARIO_ID+"-"+TIPO_PAG;}
 }

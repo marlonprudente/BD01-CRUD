@@ -36,16 +36,6 @@ public class Usuarios implements Serializable{
         this.USUARIO_ID = ID;
     }
     
-    public String getNOME_STRING(){
-        return NOME.toString();
-    }
-    public String getENDERECO_STRING(){
-        return ENDERECO.toString();
-    }
-    public String getBAIRRO_STRING(){
-        return BAIRRO.toString();
-    }
-    public String getCIDADE_STRING(){
-        return CIDADE.toString();
-    }
+    @Override
+    public String toString(){return USUARIO_ID+"-"+NOME;}
 }
