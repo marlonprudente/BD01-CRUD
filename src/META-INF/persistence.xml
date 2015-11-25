@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="BD01-CRUDPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="BD01CRUDPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entidades.Generos</class>
+    <class>entidades.Livros</class>
+    <class>entidades.PedidoDetalhes</class>
+    <class>entidades.Pedidos</class>
+    <class>entidades.Usuarios</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://200.134.10.33:3306/livraria1562339?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="banco120132"/>
