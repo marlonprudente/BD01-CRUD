@@ -26,7 +26,7 @@ public class Main {
 //3
         if (g != null) {
             System.out.println(g.getGENERO_ID() + ", " + g.getDEESCRICAO());
-            System.out.println(l.getTITULO_STRING() + " " + l.getDESCRICAO_STRING());
+            System.out.println(l.toString() + " " + l.toString());
         } else {
             System.out.println("Não encontrado!");
         }
