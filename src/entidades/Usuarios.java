@@ -24,12 +24,28 @@ public class Usuarios implements Serializable{
     String CIDADE;
     
 
-    public Integer getID() {
+    public Integer getUSUARIO_ID() {
         return USUARIO_ID;
     }
-
-    public void setID(Integer ID) {
+    /*Retorna String do ID*/
+    public String getUSUARIO_ID_STRING(){
+        return USUARIO_ID.toString();
+    }
+    
+    public void setUSUARIO_ID(Integer ID) {
         this.USUARIO_ID = ID;
     }
     
+    public String getNOME_STRING(){
+        return NOME.toString();
+    }
+    public String getENDERECO_STRING(){
+        return ENDERECO.toString();
+    }
+    public String getBAIRRO_STRING(){
+        return BAIRRO.toString();
+    }
+    public String getCIDADE_STRING(){
+        return CIDADE.toString();
+    }
 }
