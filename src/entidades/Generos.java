@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -13,16 +16,20 @@ import javax.persistence.Table;
 @Table(name="generos")
 public class Generos implements Serializable {    
     @Id
-    private int genero_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer genero_id;
     private String descricao;
     
-    @OneToMany(mappedBy="livro_genero")
+    @OneToMany(mappedBy="livro_genero", cascade = CascadeType.REFRESH)
     private List<Livros> genero_livros;
     
-    public Generos(){}
+    public Generos(){
+        genero_id = 0;
+        descricao = "";
+    }
 
-    public int getGenero_id()                   {return genero_id;}
-    public void setDescricao(int genero_id)     {this.genero_id = genero_id;}
+    public Integer getGenero_id()                   {return genero_id;}
+    public void setDescricao(Integer genero_id)     {this.genero_id = genero_id;}
 
     public String getDescricao()                {return descricao;}
     public void setDescricao(String descricao)  {this.descricao = descricao;}

@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,16 +21,17 @@ import javax.persistence.Temporal;
 @Table(name="pedidos")
 public class Pedidos implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer pedido_id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data_pedido;
-    private int tipo_pag;
+    private Integer tipo_pag;
 
     @ManyToOne
     @JoinColumn(name = "USUARIO_ID")
     Usuarios pedido_usuario;
     
-    @OneToMany(mappedBy = "pedido_detalhe_pedido")
+    @OneToMany(mappedBy = "pedido_detalhe_pedido", cascade = CascadeType.REMOVE)
     List<PedidoDetalhes> pedido_pedido_detalhes;
     
     @ManyToMany
@@ -36,7 +40,11 @@ public class Pedidos implements Serializable {
                 inverseJoinColumns = @JoinColumn(name = "LIVRO_ID"))
     List<Livros> pedido_livros;
     
-    public Pedidos(){}
+    public Pedidos(){
+        pedido_id = 0;
+        data_pedido = new Date();
+        tipo_pag = 0;
+    }
     
     public Integer getPedido_id()                       {return pedido_id;}
     public void setPedido_id(Integer pedido_id)         {this.pedido_id = pedido_id;}
@@ -44,8 +52,8 @@ public class Pedidos implements Serializable {
     public Date getData_pedido()                        {return data_pedido;}
     public void setData_pedido(Date data_pedido)        {this.data_pedido = data_pedido;}
     
-    public int getTipo_pag()                            {return tipo_pag;}
-    public void setTipo_pag(int tipo_pag)               {this.tipo_pag = tipo_pag;}
+    public Integer getTipo_pag()                            {return tipo_pag;}
+    public void setTipo_pag(Integer tipo_pag)               {this.tipo_pag = tipo_pag;}
     
     public Usuarios getUsuario()                        {return pedido_usuario;}
     public void setUsuario(Usuarios pedido_usuario)     {this.pedido_usuario = pedido_usuario;}
