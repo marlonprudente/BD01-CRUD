@@ -1,45 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidades;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-/**
- *
- * @author a1562339
- */
+
 @Entity
-@Table(name="pedidos_detalhe")
+@Table(name="pedidos_detalhes")
 public class PedidoDetalhes implements Serializable {
     @Id
-    Integer DETALHE_ID;
-    Integer PEDIDO_ID;
-    Integer LIVRO_ID;
-    Integer QTD;
+    int detalhe_id;
+    int qtd;
+
+    @ManyToOne
+    @JoinColumn(name="PEDIDO_ID")
+    Pedidos pedido_detalhe_pedido;
     
-    public Integer getDETALHE_ID() {
-        return DETALHE_ID;
-    }
-
-    public Integer getPEDIDO_ID(){
-        return PEDIDO_ID;
-    }
-
-    public Integer getLIVRO_ID(){
-        return LIVRO_ID;
-    }
-
-    public Integer getQTD(){
-        return QTD;
-    }
-    public void setDETALHE_ID(Integer DETALHE_ID) {
-        this.DETALHE_ID = DETALHE_ID;
-    }
+    @ManyToOne
+    @JoinColumn(name="LIVRO_ID")
+    Livros pedido_detalhe_livro;
+    
+    public PedidoDetalhes(){}
+    
+    public int getDetalhe_id()                                  {return detalhe_id;}
+    public void setDetalhe_id(int detalhe_id)                   {this.detalhe_id = detalhe_id;}
+    
+    public int getQtd()                                         {return qtd;}
+    public void setQtd(int qtd)                                 {this.qtd = qtd;}
+    
+    public Pedidos getPedido()                                  {return pedido_detalhe_pedido;}
+    public void setPedido(Pedidos pedido_detalhes_pedido)       {this.pedido_detalhe_pedido = pedido_detalhes_pedido;}
+   
+    public Livros getLivro()                                    {return pedido_detalhe_livro;}
+    public void setLivro(Livros pedido_detalhe_livro)          {this.pedido_detalhe_livro = pedido_detalhe_livro;}
     
     @Override
-    public String toString(){return DETALHE_ID+"-"+LIVRO_ID+"-"+QTD;}
+    public String toString(){return detalhe_id+"-"+pedido_detalhe_livro.getTitulo()+"-"+qtd;}
 }

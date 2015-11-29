@@ -1,41 +1,61 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
-
-/**
- *
- * @author a1562339
- */
 @Entity
 @Table(name="usuarios")
 public class Usuarios implements Serializable{
     @Id
-    Integer USUARIO_ID;
-    String NOME;
-    String ENDERECO;
-    String BAIRRO;
-    String CIDADE;
-    
+    private int usuario_id;
+    private String nome;
+    private String endereco;
+    private String bairro;
+    private String cidade;
+    private String uf;
+    private String cep;
+    private String fone;
+    private String login;
+    private String senha;
 
-    public Integer getUSUARIO_ID() {
-        return USUARIO_ID;
-    }
-    /*Retorna String do ID*/
-    public String getUSUARIO_ID_STRING(){
-        return USUARIO_ID.toString();
-    }
+    @OneToMany(mappedBy="pedido_usuario")
+    private List<Pedidos> usuario_pedidos;
+
+    public Usuarios(){}
     
-    public void setUSUARIO_ID(Integer ID) {
-        this.USUARIO_ID = ID;
-    }
+    public int getUsuario_id()                  {return usuario_id;}
+    public void setUsuario_id(int usuario_id)   {this.usuario_id = usuario_id;}
     
+    public String getNome()                     {return nome;}
+    public void setNome(String nome)            {this.nome = nome;}
+    
+    public String getEndereco()                 {return endereco;}
+    public void setEndereco(String endereco)    {this.endereco = endereco;}
+    
+    public String getBairro()                   {return bairro;}
+    public void setBairro(String bairro)        {this.bairro = bairro;}
+    
+    public String getCidade()                   {return cidade;}
+    public void setCidade(String cidade)        {this.cidade = cidade;}
+    
+    public String getUf()                       {return uf;}
+    public void setUf(String uf)                {this.uf = uf;}
+    
+    public String getCep()                      {return cep;}
+    public void setCep(String cep)              {this.cep = cep;}
+        
+    public String getFone()                     {return fone;}
+    public void setFone(String fone)            {this.fone = fone;}
+    
+    public String getLogin()                    {return login;}
+    public void setLogin(String login)          {this.login = login;}
+    
+    public String getSenha()                    {return senha;}
+    public void setSenha(String senha)          {this.senha = senha;}
+    
+    public List<Pedidos> getPedidos()           {return usuario_pedidos;}
+
     @Override
-    public String toString(){return USUARIO_ID+"-"+NOME;}
+    public String toString()                    {return usuario_id+"-"+nome;}
 }
