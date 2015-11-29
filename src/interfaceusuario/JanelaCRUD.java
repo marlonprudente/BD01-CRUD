@@ -5,7 +5,9 @@ import javax.swing.AbstractListModel;
 
 public class JanelaCRUD extends javax.swing.JFrame {
     private final GerenciadorTransacoes gerTrans;
-    AbstractListModel listaUsuarios;
+    private AbstractListModel listaUsuarios;
+    private AbstractListModel listaLivros;
+    private AbstractListModel listaPedidos;
     
     public JanelaCRUD(GerenciadorTransacoes gerTrans) {
         this.gerTrans = gerTrans;
@@ -15,6 +17,20 @@ public class JanelaCRUD extends javax.swing.JFrame {
             public int getSize() {return gerTrans.getListaUsuarios().size();}
             @Override
             public Object getElementAt(int index) {return gerTrans.getListaUsuarios().get(index);}
+        };
+        
+        listaLivros = new AbstractListModel(){
+            @Override
+            public int getSize() {return gerTrans.getListaLivros().size();}
+            @Override
+            public Object getElementAt(int index) {return gerTrans.getListaLivros().get(index);}
+        };
+        
+        listaPedidos = new AbstractListModel(){
+            @Override
+            public int getSize() {return gerTrans.getListaPedidos().size();}
+            @Override
+            public Object getElementAt(int index) {return gerTrans.getListaPedidos().get(index);}
         };
     
         
@@ -50,36 +66,41 @@ public class JanelaCRUD extends javax.swing.JFrame {
         BD01CRUDPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("BD01CRUDPU").createEntityManager();
         usuariosQuery = java.beans.Beans.isDesignTime() ? null : BD01CRUDPUEntityManager.createQuery("SELECT u FROM Usuarios u");
         usuariosList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : usuariosQuery.getResultList();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jScrollPane_lista = new javax.swing.JScrollPane();
+        jList_lista = new javax.swing.JList();
+        jButton_adicionar = new javax.swing.JButton();
+        jButton_visualizar = new javax.swing.JButton();
+        jButton_excluir = new javax.swing.JButton();
+        jComboBox_tabelas = new javax.swing.JComboBox();
+        jMenuBar_menu = new javax.swing.JMenuBar();
+        jMenu_arquivo = new javax.swing.JMenu();
+        jMenu_editar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jList1.setModel(listaUsuarios);
-        jScrollPane1.setViewportView(jList1);
+        jList_lista.setModel(listaUsuarios);
+        jScrollPane_lista.setViewportView(jList_lista);
 
-        jButton1.setText("Adicionar");
+        jButton_adicionar.setText("Adicionar");
 
-        jButton2.setText("Visualizar");
+        jButton_visualizar.setText("Visualizar");
 
-        jButton3.setText("Excluir");
+        jButton_excluir.setText("Excluir");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Usuários", "Livros", "Pedidos" }));
+        jComboBox_tabelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Usuários", "Livros", "Pedidos" }));
+        jComboBox_tabelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_tabelasActionPerformed(evt);
+            }
+        });
 
-        jMenu1.setText("Arquivo");
-        jMenuBar1.add(jMenu1);
+        jMenu_arquivo.setText("Arquivo");
+        jMenuBar_menu.add(jMenu_arquivo);
 
-        jMenu2.setText("Editar");
-        jMenuBar1.add(jMenu2);
+        jMenu_editar.setText("Editar");
+        jMenuBar_menu.add(jMenu_editar);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenuBar_menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,15 +109,15 @@ public class JanelaCRUD extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane_lista)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, 0, 145, Short.MAX_VALUE)
+                        .addComponent(jComboBox_tabelas, 0, 145, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(jButton_adicionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jButton_visualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(jButton_excluir)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -104,29 +125,46 @@ public class JanelaCRUD extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_adicionar)
+                    .addComponent(jButton_visualizar)
+                    .addComponent(jButton_excluir)
+                    .addComponent(jComboBox_tabelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addComponent(jScrollPane_lista, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboBox_tabelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_tabelasActionPerformed
+        switch(jComboBox_tabelas.getSelectedIndex()){
+            case 0:
+                jList_lista.setModel(listaUsuarios); 
+            break;
+            case 1:
+                jList_lista.setModel(listaLivros);
+            break;
+            case 2:
+                jList_lista.setModel(listaPedidos);
+            break;
+            default:
+                System.out.println("ERROR: ComboBox out of range");
+            break;
+        }
+    }//GEN-LAST:event_jComboBox_tabelasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager BD01CRUDPUEntityManager;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JList jList1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jButton_adicionar;
+    private javax.swing.JButton jButton_excluir;
+    private javax.swing.JButton jButton_visualizar;
+    private javax.swing.JComboBox jComboBox_tabelas;
+    private javax.swing.JList jList_lista;
+    private javax.swing.JMenuBar jMenuBar_menu;
+    private javax.swing.JMenu jMenu_arquivo;
+    private javax.swing.JMenu jMenu_editar;
+    private javax.swing.JScrollPane jScrollPane_lista;
     private java.util.List<entidades.Usuarios> usuariosList;
     private javax.persistence.Query usuariosQuery;
     // End of variables declaration//GEN-END:variables

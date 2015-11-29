@@ -63,5 +63,5 @@ public class Pedidos implements Serializable {
     public ArrayList<Livros> getLivros()                {return new ArrayList<>(pedido_livros);}
     
     @Override
-    public String toString(){return pedido_id+"-"+pedido_usuario.getNome()+"-"+tipo_pag;}
+    public String toString(){return pedido_id+"-"+data_pedido+"-"+pedido_usuario.getNome()+"-"+tipo_pag;}
 }
