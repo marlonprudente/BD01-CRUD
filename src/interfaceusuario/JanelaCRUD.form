@@ -2,29 +2,415 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.persistence.EntityManager" name="BD01CRUDPUEntityManager">
+    <Container class="javax.swing.JDialog" name="jDialog_usuarios">
       <Properties>
-        <Property name="persistenceUnit" type="java.lang.String" value="BD01CRUDPU"/>
-      </Properties>
-    </Component>
-    <Component class="javax.persistence.Query" name="usuariosQuery">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT u FROM Usuarios u"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="BD01CRUDPUEntityManager"/>
+        <Property name="defaultCloseOperation" type="int" value="0"/>
+        <Property name="modal" type="boolean" value="true"/>
+        <Property name="type" type="java.awt.Window$Type" editor="org.netbeans.modules.form.editors.EnumEditor">
+          <Value id="UTILITY"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="java.util.List" name="usuariosList">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="usuariosQuery"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;entidades.Usuarios&gt;"/>
-      </AuxValues>
-    </Component>
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="jDialog_usuarios_fechar"/>
+      </Events>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <Component id="jToggleButton_propsUsuariosAlterar" min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jButton_propUsuariosOk" linkSize="1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButton_propUsuariosCancelar" linkSize="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Component id="jScrollPane_propUsuarios" alignment="0" pref="376" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jScrollPane_propUsuarios" min="-2" pref="299" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jToggleButton_propsUsuariosAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_propUsuariosOk" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_propUsuariosCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane_propUsuarios">
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="jPanel_propUsuarios">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanel_propUsuariosCampos" max="32767" attributes="0"/>
+                              <Component id="jPanel_propUsuarioPedidos" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel_propUsuariosCampos" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel_propUsuarioPedidos" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="jPanel_propUsuarioPedidos">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Pedidos"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane_propUsuariosPedidos" alignment="0" pref="325" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane_propUsuariosPedidos" alignment="0" pref="144" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane_propUsuariosPedidos">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JList" name="jList_propUsuariosPedidos">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                              <StringArray count="0"/>
+                            </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="jPanel_propUsuariosCampos">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Usu&#xe1;rio"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                              <Component id="jLabel_propUsuarioId" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jLabel_propUsuarioNome" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jTextField_propUsuarioNome" max="32767" attributes="0"/>
+                                          <Component id="jFormattedTextField_propUsuarioId" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel_propUsuarioBairro" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel_propUsuarioEndereco" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel_propUsuarioCidade" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel_propUsuarioUf" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel_propUsuarioCep" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel_propUsuarioFone" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel_propUsuarioLogin" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel_propUsuarioSenha" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jTextField_propUsuarioBairro" max="32767" attributes="0"/>
+                                          <Component id="jTextField_propUsuarioCidade" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextField_propUsuarioEndereco" max="32767" attributes="0"/>
+                                          <Component id="jComboBox_propUsuarioUf" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jFormattedTextField_proUsuarioCep" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jFormattedTextField_propUsuarioFone" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextField_propUsuarioLogin" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextField_propUsuarioSenha" alignment="1" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace pref="14" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel_propUsuarioId" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jFormattedTextField_propUsuarioId" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel_propUsuarioNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField_propUsuarioNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel_propUsuarioEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField_propUsuarioEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jTextField_propUsuarioBairro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel_propUsuarioBairro" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jTextField_propUsuarioCidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel_propUsuarioCidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel_propUsuarioUf" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBox_propUsuarioUf" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jFormattedTextField_proUsuarioCep" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel_propUsuarioCep" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jFormattedTextField_propUsuarioFone" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel_propUsuarioFone" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jTextField_propUsuarioLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel_propUsuarioLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jTextField_propUsuarioSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel_propUsuarioSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="jLabel_propUsuarioId">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="ID:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField_propUsuarioId">
+                      <Properties>
+                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                          <Format format="#0" subtype="-1" type="0"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="99"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel_propUsuarioNome">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Nome:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField_propUsuarioNome">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="--"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel_propUsuarioEndereco">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Endere&#xe7;o:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField_propUsuarioEndereco">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="--"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel_propUsuarioBairro">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Bairro:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField_propUsuarioBairro">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="--"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel_propUsuarioCidade">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Cidade:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField_propUsuarioCidade">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="--"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel_propUsuarioUf">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="UF:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="jComboBox_propUsuarioUf">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="27">
+                            <StringItem index="0" value="AC"/>
+                            <StringItem index="1" value="AL"/>
+                            <StringItem index="2" value="AM"/>
+                            <StringItem index="3" value="AP"/>
+                            <StringItem index="4" value="BA"/>
+                            <StringItem index="5" value="CE"/>
+                            <StringItem index="6" value="DF"/>
+                            <StringItem index="7" value="ES"/>
+                            <StringItem index="8" value="GO"/>
+                            <StringItem index="9" value="MA"/>
+                            <StringItem index="10" value="MG"/>
+                            <StringItem index="11" value="MS"/>
+                            <StringItem index="12" value="MT"/>
+                            <StringItem index="13" value="PA"/>
+                            <StringItem index="14" value="PB"/>
+                            <StringItem index="15" value="PE"/>
+                            <StringItem index="16" value="PI"/>
+                            <StringItem index="17" value="PR"/>
+                            <StringItem index="18" value="RJ"/>
+                            <StringItem index="19" value="RN"/>
+                            <StringItem index="20" value="RO"/>
+                            <StringItem index="21" value="RR"/>
+                            <StringItem index="22" value="RS"/>
+                            <StringItem index="23" value="SC"/>
+                            <StringItem index="24" value="SE"/>
+                            <StringItem index="25" value="SP"/>
+                            <StringItem index="26" value="TO"/>
+                          </StringArray>
+                        </Property>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel_propUsuarioCep">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="CEP:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField_proUsuarioCep">
+                      <Properties>
+                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+                          <Format format="#####-###" subtype="-1" type="5"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="00000-000"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel_propUsuarioFone">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Fone:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField_propUsuarioFone">
+                      <Properties>
+                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+                          <Format format="####-####" subtype="-1" type="5"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="0000-0000"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel_propUsuarioLogin">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Login:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField_propUsuarioLogin">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="--"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel_propUsuarioSenha">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Senha:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField_propUsuarioSenha">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="--"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JToggleButton" name="jToggleButton_propsUsuariosAlterar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Alterar"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton_propUsuariosOk">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ok"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_propUsuariosOk_aceitarAdicao"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton_propUsuariosCancelar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_propUsuariosCancelarActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar_menu">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu_arquivo">
@@ -68,13 +454,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane_lista" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jComboBox_tabelas" pref="145" max="32767" attributes="0"/>
+                      <Component id="jComboBox_tabelas" pref="131" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton_adicionar" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_adicionar" linkSize="2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton_visualizar" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_visualizar" linkSize="2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton_excluir" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_excluir" linkSize="2" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -112,6 +498,9 @@
               <Connection code="listaUsuarios" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="jList_listaValueChanged"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -119,15 +508,20 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Adicionar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_adicionar_novoUsuario"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton_visualizar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Visualizar"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton_excluir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Excluir"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox_tabelas">
@@ -141,7 +535,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox_tabelasActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox_tabelas_selecaoEfetuada"/>
       </Events>
     </Component>
   </SubComponents>

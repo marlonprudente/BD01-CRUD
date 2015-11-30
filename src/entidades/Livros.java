@@ -21,7 +21,6 @@ import javax.persistence.Table;
 @Table(name="livros")
 public class Livros implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer livro_id;
     private String titulo;
     private String autor;

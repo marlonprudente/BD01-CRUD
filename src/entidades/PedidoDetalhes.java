@@ -12,7 +12,6 @@ import javax.persistence.Table;
 @Table(name="pedidos_detalhes")
 public class PedidoDetalhes implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer detalhe_id;
     Integer qtd;
 
@@ -35,11 +34,11 @@ public class PedidoDetalhes implements Serializable {
     public Integer getQtd()                                         {return qtd;}
     public void setQtd(Integer qtd)                                 {this.qtd = qtd;}
     
-    public Pedidos getPedido()                                  {return pedido_detalhe_pedido;}
-    public void setPedido(Pedidos pedido_detalhes_pedido)       {this.pedido_detalhe_pedido = pedido_detalhes_pedido;}
+    public Pedidos getPedido()                                      {return pedido_detalhe_pedido;}
+    public void setPedido(Pedidos pedido_detalhes_pedido)           {this.pedido_detalhe_pedido = pedido_detalhes_pedido;}
    
-    public Livros getLivro()                                    {return pedido_detalhe_livro;}
-    public void setLivro(Livros pedido_detalhe_livro)           {this.pedido_detalhe_livro = pedido_detalhe_livro;}
+    public Livros getLivro()                                        {return pedido_detalhe_livro;}
+    public void setLivro(Livros pedido_detalhe_livro)               {this.pedido_detalhe_livro = pedido_detalhe_livro;}
     
     @Override
     public String toString(){return detalhe_id+"-"+pedido_detalhe_livro.getTitulo()+"-"+qtd;}
