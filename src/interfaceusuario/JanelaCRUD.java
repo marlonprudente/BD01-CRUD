@@ -395,6 +395,11 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
         jButton_excluir.setText("Excluir");
         jButton_excluir.setEnabled(false);
+        jButton_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_excluir_pressionado(evt);
+            }
+        });
 
         jComboBox_tabelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Usuários", "Livros", "Pedidos" }));
         jComboBox_tabelas.addActionListener(new java.awt.event.ActionListener() {
@@ -545,6 +550,29 @@ public class JanelaCRUD extends javax.swing.JFrame {
         if(w[0] != null)
             w[0].windowClosing(new WindowEvent(jDialog_usuarios,WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_jButton_propUsuariosCancelarActionPerformed
+
+    private void jButton_excluir_pressionado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_excluir_pressionado
+        int opcao = JOptionPane.showOptionDialog(jDialog_usuarios, "Deseja mesmo remover este elemento?",
+                        "Remover elemento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        if(opcao == 0)
+        {
+            switch(jComboBox_tabelas.getSelectedIndex()){
+                case 0:
+                    Usuarios usuario = (Usuarios) jList_lista.getSelectedValue();
+                    gerTrans.removerUsuario(usuario);
+                    jList_lista.setModel(listaNula);
+                    jList_lista.setModel(listaUsuarios);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                    System.out.println("ERROR: ComboBox out of range");
+                break;
+            }
+        }
+    }//GEN-LAST:event_jButton_excluir_pressionado
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_adicionar;

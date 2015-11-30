@@ -45,4 +45,11 @@ public class GerenciadorTransacoes {
         em.persist(usuario);
         et.commit();
     }
+
+    public void removerUsuario(Usuarios usuario) {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.remove(usuario);
+        et.commit();
+    }
 }
