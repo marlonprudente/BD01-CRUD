@@ -3,6 +3,7 @@ package acesso;
 import javax.persistence.EntityManager;
 import entidades.*;
 import java.util.List;
+import javax.persistence.EntityTransaction;
 
 public class GerenciadorTransacoes {
     final private EntityManager em;
@@ -26,5 +27,22 @@ public class GerenciadorTransacoes {
     }
     public List<PedidoDetalhes> getListaDetalhes(){
         return em.createQuery("SELECT u FROM PedidoDetalhes u", PedidoDetalhes.class).getResultList();
-    }    
+    }
+    
+    public boolean isIdUtilizado(Class entidade, int id) throws Exception{
+        if(     !(entidade.equals(Usuarios.class)||
+                  entidade.equals(Livros.class)||
+                  entidade.equals(Generos.class)||
+                  entidade.equals(Pedidos.class)||
+                  entidade.equals(PedidoDetalhes.class)))
+        throw new Exception("Entidade não suportada");
+        return em.find(entidade, id) != null;
+    }
+    
+    public void adicionarUsuario(Usuarios usuario){
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.persist(usuario);
+        et.commit();
+    }
 }

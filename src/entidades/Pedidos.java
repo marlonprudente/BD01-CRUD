@@ -21,7 +21,6 @@ import javax.persistence.Temporal;
 @Table(name="pedidos")
 public class Pedidos implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer pedido_id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data_pedido;
