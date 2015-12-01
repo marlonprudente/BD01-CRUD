@@ -91,7 +91,7 @@ public class Livros implements Serializable {
     public void setCapa(Byte[] capa)            {this.capa = capa;}
     
     public Generos getGenero()                  {return livro_genero;}
-    public void setGenero(Generos genero)       {this.livro_genero = livro_genero;}
+    public void setGenero(Generos genero)       {this.livro_genero = genero;}
     
     public List<PedidoDetalhes> getDetalhes()   {return new ArrayList<>(livro_pedido_detalhes);}
     

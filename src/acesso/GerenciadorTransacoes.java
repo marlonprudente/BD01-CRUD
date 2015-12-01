@@ -41,6 +41,13 @@ public class GerenciadorTransacoes {
         throw new Exception("Entidade não suportada");
         return em.find(entidade, id) != null;
     }
+
+        public void persistirLivro(Livros livro){
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.persist(livro);
+        et.commit();
+    }
     
     public void persistirUsuario(Usuarios usuario){
         EntityTransaction et = em.getTransaction();
