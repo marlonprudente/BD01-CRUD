@@ -1072,6 +1072,12 @@ public class JanelaCRUD extends javax.swing.JFrame {
                 jList_lista.setModel(listaUsuarios);
                 break;
             case 1:
+                opDialog_livro = OP_ADICIONAR;
+                //Exibe janela para criação novo usuario
+                novoLivro();
+                //Atualiza nova lista
+                jList_lista.setModel(listaNula);
+                jList_lista.setModel(listaLivros);
                 break;
             case 2:
                 break;
@@ -1442,6 +1448,45 @@ private void novoUsuario() {
         
         jToggleButton_propsUsuariosAlterar.setSelected(false);
     }
+private void novoLivro(){
+        jDialog_livros.pack();
+        jDialog_livros.setLocationRelativeTo(null);
+        
+        jDialog_livros.setTitle("Adicionar Livro");
+        
+        jFormattedTextField_propLivroId.setEnabled(true);
+        jTextField_propLivroTitulo.setEnabled(true);
+        jTextField_propLivroAutor.setEnabled(true);
+        jTextField_propLivroEditora.setEnabled(true);
+        jTextField_propLivroAno.setEnabled(true);
+        jFormattedTextField_propLivroEstoque.setEnabled(true);
+        jTextField_propLivroReserva.setEnabled(true);
+        jComboBox_propLivroGenero.setEnabled(true);
+        jTextArea_propLivroDescricao.setEnabled(true);
+        jFormattedTextField_proLivroPreco.setEnabled(true);        
+
+        jButton_propLivroOk.setEnabled(true);
+        jButton_propLivroCancelar.setEnabled(true);
+
+        jDialog_livros.setVisible(true);
+
+        jFormattedTextField_propLivroId.setEnabled(false);
+        jTextField_propLivroTitulo.setEnabled(false);
+        jTextField_propLivroAutor.setEnabled(false);
+        jTextField_propLivroEditora.setEnabled(false);
+        jTextField_propLivroAno.setEnabled(false);
+        jFormattedTextField_propLivroEstoque.setEnabled(false);
+        jTextField_propLivroReserva.setEnabled(false);
+        jComboBox_propLivroGenero.setEnabled(false);
+        jTextArea_propLivroDescricao.setEnabled(false);
+        jFormattedTextField_proLivroPreco.setEnabled(false);
+
+        jButton_propLivroOk.setEnabled(false);
+        jButton_propLivroCancelar.setEnabled(false);   
+        jToggleButton_propsLivroAlterar.setEnabled(false);
+        
+        jToggleButton_propsLivroAlterar.setSelected(false);
+}
 
 private void visualizarUsuario(Usuarios usuario) {
         jDialog_usuarios.pack();
@@ -1489,6 +1534,53 @@ private void visualizarUsuario(Usuarios usuario) {
         jToggleButton_propsUsuariosAlterar.setEnabled(false);
         jToggleButton_propsUsuariosAlterar.setSelected(false);
     }
+    private void visualizarLivro(Livros livro){
+        jDialog_livros.pack();
+        jDialog_usuarios.setLocationRelativeTo(null);
+
+        jDialog_livros.setTitle("Visualizar Livros");
+
+        jButton_propLivroOk.setEnabled(true);
+        jButton_propLivroCancelar.setEnabled(true);
+        jToggleButton_propsLivroAlterar.setEnabled(true);
+
+        jFormattedTextField_propLivroId.setText(String.valueOf(livro.getLivro_id()));        
+        jTextField_propLivroTitulo.setText(livro.getTitulo());        
+        jTextField_propLivroAutor.setText(livro.getAutor());        
+        jTextField_propLivroEditora.setText(livro.getEditora());        
+        jTextField_propLivroAno.setText(String.valueOf(livro.getAno()));        
+        jFormattedTextField_propLivroEstoque.setText(String.valueOf(livro.getEstoque()));        
+        jTextField_propLivroReserva.setText(String.valueOf(livro.getReserva()));
+        jComboBox_propLivroGenero.setSelectedItem(livro.getGenero());
+        jTextArea_propLivroDescricao.setText(livro.getDescricao());
+        jFormattedTextField_proLivroPreco.setText(String.valueOf(livro.getPreco()));
+        
+        jList_propLivroPedidos.setModel(new AbstractListModel() {
+            @Override
+            public int getSize() {return livro.getPedidos().size();}
+            @Override
+            public Object getElementAt(int index) {return livro.getPedidos();}
+        });
+        
+        jDialog_livros.setVisible(true);
+        
+        jFormattedTextField_propLivroId.setEnabled(false);
+        jTextField_propLivroTitulo.setEnabled(false);
+        jTextField_propLivroAutor.setEnabled(false);
+        jTextField_propLivroEditora.setEnabled(false);
+        jTextField_propLivroAno.setEnabled(false);
+        jFormattedTextField_propLivroEstoque.setEnabled(false);
+        jTextField_propLivroReserva.setEnabled(false);
+        jComboBox_propLivroGenero.setEnabled(false);
+        jTextArea_propLivroDescricao.setEnabled(false);
+        jFormattedTextField_proLivroPreco.setEnabled(false);
+
+        jButton_propLivroOk.setEnabled(false);
+        jButton_propLivroCancelar.setEnabled(false);   
+        jToggleButton_propsLivroAlterar.setEnabled(false);
+        
+        jToggleButton_propsLivroAlterar.setSelected(false);
+    }
 
     private void inserirUsuario(Usuarios usuario) {
         try {
@@ -1506,6 +1598,20 @@ private void visualizarUsuario(Usuarios usuario) {
         } catch (BadLocationException ex) {
             Logger.getLogger(JanelaCRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    private void inserirLivros(Livros livro){
+        livro.setLivro_id(Integer.parseInt(jFormattedTextField_propLivroId.getText()));
+        livro.setTitulo(jTextField_propLivroTitulo.getText());
+        livro.setAutor(jTextField_propLivroAutor.getText());
+        livro.setEditora(jTextField_propLivroEditora.getText());
+        livro.setAno(Integer.parseInt(jTextField_propLivroAno.getText()));
+        /*Deve aparece a lista de generos cadastradas no banco de dados*/
+        livro.setGenero(null);
+        livro.setDescricao(jTextArea_propLivroDescricao.getText());
+        livro.setPreco(Double.parseDouble(jFormattedTextField_proLivroPreco.getText()));
+        livro.setEstoque(Integer.parseInt(jFormattedTextField_propLivroEstoque.getText()));
+        livro.setReserva(Integer.parseInt(jTextField_propLivroReserva.getText()));
+        livro.setCapa(null);
     }
 
     private void fecharDialog(JDialog dialog) {
