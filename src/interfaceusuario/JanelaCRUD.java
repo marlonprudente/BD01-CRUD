@@ -166,19 +166,19 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jButton_propLivroCancelar = new javax.swing.JButton();
         jDialog_pedidos = new javax.swing.JDialog();
         jScrollPane_propPedido = new javax.swing.JScrollPane();
-        jLabel_ = new javax.swing.JPanel();
+        jPanel_propPedido = new javax.swing.JPanel();
         jPanel_propPedidoCampos = new javax.swing.JPanel();
         jLabel_propPedidoId = new javax.swing.JLabel();
         jFormattedTextField_propPedidoId = new javax.swing.JFormattedTextField();
         jLabel_propPedidoUsuario = new javax.swing.JLabel();
-        jComboBox_propUsuario = new javax.swing.JComboBox();
+        jComboBox_propPedidoUsuario = new javax.swing.JComboBox();
         jLabel_propPedidoData = new javax.swing.JLabel();
         jFormattedTextField_propPedidoData = new javax.swing.JFormattedTextField();
         jLabel_propPedidoTipoPag = new javax.swing.JLabel();
         jFormattedTextField_propPedidoTipoPag = new javax.swing.JFormattedTextField();
-        jPanel_propPedidoDetalhes = new javax.swing.JPanel();
+        jPanel_propPedidosDetalhes = new javax.swing.JPanel();
         jScrollPane_propPedidoDetalhes = new javax.swing.JScrollPane();
-        jList_propPedidoDetalhes = new javax.swing.JList();
+        jList_propLivroPedidos1 = new javax.swing.JList();
         jLabel_propPedidoDetalheId = new javax.swing.JLabel();
         jFormattedTextField_propPedidoDetalheId = new javax.swing.JFormattedTextField();
         jLabel_propPedidoDetalheLivro = new javax.swing.JLabel();
@@ -187,8 +187,8 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jFormattedTextField_propPedidoDetalheQuantidade = new javax.swing.JFormattedTextField();
         jButton_propPedidoDetalheAdicionar = new javax.swing.JButton();
         jButton_propPedidoDetalheExcluir = new javax.swing.JButton();
-        jButton_propDetalheAlterar = new javax.swing.JButton();
-        jToggleButton_propPedidoAlterar = new javax.swing.JToggleButton();
+        jButton_propPedidoDetalheAlterar = new javax.swing.JButton();
+        jToggleButton_propsPedidoAlterar = new javax.swing.JToggleButton();
         jButton_propPedidoOk = new javax.swing.JButton();
         jButton_propPedidoCancelar = new javax.swing.JButton();
         jScrollPane_lista = new javax.swing.JScrollPane();
@@ -748,8 +748,8 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
         jLabel_propPedidoUsuario.setText("Usuário:");
 
-        jComboBox_propUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox_propUsuario.setEnabled(false);
+        jComboBox_propPedidoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_propPedidoUsuario.setEnabled(false);
 
         jLabel_propPedidoData.setText("Data:");
 
@@ -775,7 +775,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
                     .addComponent(jLabel_propPedidoTipoPag))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_propPedidoCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox_propUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox_propPedidoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jFormattedTextField_propPedidoData)
                     .addComponent(jFormattedTextField_propPedidoTipoPag)))
             .addGroup(jPanel_propPedidoCamposLayout.createSequentialGroup()
@@ -791,7 +791,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel_propPedidoCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_propPedidoUsuario)
-                    .addComponent(jComboBox_propUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox_propPedidoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_propPedidoCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_propPedidoData)
@@ -802,10 +802,10 @@ public class JanelaCRUD extends javax.swing.JFrame {
                     .addComponent(jFormattedTextField_propPedidoTipoPag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel_propPedidoDetalhes.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalhes"));
+        jPanel_propPedidosDetalhes.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalhes"));
 
-        jList_propPedidoDetalhes.setEnabled(false);
-        jScrollPane_propPedidoDetalhes.setViewportView(jList_propPedidoDetalhes);
+        jList_propLivroPedidos1.setEnabled(false);
+        jScrollPane_propPedidoDetalhes.setViewportView(jList_propLivroPedidos1);
 
         jLabel_propPedidoDetalheId.setText("ID:");
 
@@ -829,116 +829,101 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jButton_propPedidoDetalheExcluir.setText("Excluir");
         jButton_propPedidoDetalheExcluir.setEnabled(false);
 
-        jButton_propDetalheAlterar.setText("Alterar");
-        jButton_propDetalheAlterar.setEnabled(false);
+        jButton_propPedidoDetalheAlterar.setText("Alterar");
+        jButton_propPedidoDetalheAlterar.setEnabled(false);
 
-        javax.swing.GroupLayout jPanel_propPedidoDetalhesLayout = new javax.swing.GroupLayout(jPanel_propPedidoDetalhes);
-        jPanel_propPedidoDetalhes.setLayout(jPanel_propPedidoDetalhesLayout);
-        jPanel_propPedidoDetalhesLayout.setHorizontalGroup(
-            jPanel_propPedidoDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_propPedidoDetalhesLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_propPedidosDetalhesLayout = new javax.swing.GroupLayout(jPanel_propPedidosDetalhes);
+        jPanel_propPedidosDetalhes.setLayout(jPanel_propPedidosDetalhesLayout);
+        jPanel_propPedidosDetalhesLayout.setHorizontalGroup(
+            jPanel_propPedidosDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_propPedidosDetalhesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton_propPedidoDetalheAdicionar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_propDetalheAlterar)
+                .addComponent(jButton_propPedidoDetalheAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_propPedidoDetalheExcluir)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel_propPedidoDetalhesLayout.createSequentialGroup()
-                .addGroup(jPanel_propPedidoDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_propPedidoDetalhesLayout.createSequentialGroup()
+            .addGroup(jPanel_propPedidosDetalhesLayout.createSequentialGroup()
+                .addGroup(jPanel_propPedidosDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_propPedidosDetalhesLayout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addGroup(jPanel_propPedidoDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel_propPedidosDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel_propPedidoDetalheLivro)
                             .addComponent(jLabel_propPedidoDetalheId)))
                     .addComponent(jLabel_propPedidoDetalheQuantidade))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel_propPedidoDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_propPedidosDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jFormattedTextField_propPedidoDetalheQuantidade)
                     .addComponent(jComboBox_propPedidoDetalheLivro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jFormattedTextField_propPedidoDetalheId)))
             .addComponent(jScrollPane_propPedidoDetalhes)
         );
 
-        jPanel_propPedidoDetalhesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton_propDetalheAlterar, jButton_propPedidoDetalheAdicionar, jButton_propPedidoDetalheExcluir});
+        jPanel_propPedidosDetalhesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton_propPedidoDetalheAdicionar, jButton_propPedidoDetalheAlterar, jButton_propPedidoDetalheExcluir});
 
-        jPanel_propPedidoDetalhesLayout.setVerticalGroup(
-            jPanel_propPedidoDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_propPedidoDetalhesLayout.createSequentialGroup()
+        jPanel_propPedidosDetalhesLayout.setVerticalGroup(
+            jPanel_propPedidosDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_propPedidosDetalhesLayout.createSequentialGroup()
                 .addComponent(jScrollPane_propPedidoDetalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel_propPedidoDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_propPedidosDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_propPedidoDetalheId)
                     .addComponent(jFormattedTextField_propPedidoDetalheId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel_propPedidoDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_propPedidosDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox_propPedidoDetalheLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_propPedidoDetalheLivro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel_propPedidoDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_propPedidosDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFormattedTextField_propPedidoDetalheQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_propPedidoDetalheQuantidade))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel_propPedidoDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_propPedidosDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_propPedidoDetalheAdicionar)
                     .addComponent(jButton_propPedidoDetalheExcluir)
-                    .addComponent(jButton_propDetalheAlterar))
+                    .addComponent(jButton_propPedidoDetalheAlterar))
                 .addGap(12, 12, 12))
         );
 
-        javax.swing.GroupLayout jLabel_Layout = new javax.swing.GroupLayout(jLabel_);
-        jLabel_.setLayout(jLabel_Layout);
-        jLabel_Layout.setHorizontalGroup(
-            jLabel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLabel_Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_propPedidoLayout = new javax.swing.GroupLayout(jPanel_propPedido);
+        jPanel_propPedido.setLayout(jPanel_propPedidoLayout);
+        jPanel_propPedidoLayout.setHorizontalGroup(
+            jPanel_propPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_propPedidoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jLabel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel_propPedidoDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel_propPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel_propPedidosDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel_propPedidoCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jLabel_Layout.setVerticalGroup(
-            jLabel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLabel_Layout.createSequentialGroup()
+        jPanel_propPedidoLayout.setVerticalGroup(
+            jPanel_propPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_propPedidoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel_propPedidoCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_propPedidoDetalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_propPedidosDetalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jScrollPane_propPedido.setViewportView(jLabel_);
+        jScrollPane_propPedido.setViewportView(jPanel_propPedido);
 
-        jToggleButton_propPedidoAlterar.setText("Alterar");
-        jToggleButton_propPedidoAlterar.setEnabled(false);
-        jToggleButton_propPedidoAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton_propPedidoAlterar_visualizarOuEditar(evt);
-            }
-        });
+        jToggleButton_propsPedidoAlterar.setText("Alterar");
+        jToggleButton_propsPedidoAlterar.setEnabled(false);
 
         jButton_propPedidoOk.setText("Ok");
         jButton_propPedidoOk.setEnabled(false);
-        jButton_propPedidoOk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_propPedidoOk_aceitar(evt);
-            }
-        });
 
         jButton_propPedidoCancelar.setText("Cancelar");
         jButton_propPedidoCancelar.setEnabled(false);
-        jButton_propPedidoCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_propPedidoCancelar_pressionado(evt);
-            }
-        });
 
         javax.swing.GroupLayout jDialog_pedidosLayout = new javax.swing.GroupLayout(jDialog_pedidos.getContentPane());
         jDialog_pedidos.getContentPane().setLayout(jDialog_pedidosLayout);
         jDialog_pedidosLayout.setHorizontalGroup(
             jDialog_pedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialog_pedidosLayout.createSequentialGroup()
-                .addComponent(jToggleButton_propPedidoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToggleButton_propsPedidoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton_propPedidoOk)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -951,7 +936,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
                 .addComponent(jScrollPane_propPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jDialog_pedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton_propPedidoAlterar)
+                    .addComponent(jToggleButton_propsPedidoAlterar)
                     .addComponent(jButton_propPedidoOk)
                     .addComponent(jButton_propPedidoCancelar)))
         );
@@ -1294,14 +1279,6 @@ public class JanelaCRUD extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton_propPedidoAlterar_visualizarOuEditar
 
-    private void jButton_propPedidoOk_aceitar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propPedidoOk_aceitar
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_propPedidoOk_aceitar
-
-    private void jButton_propPedidoCancelar_pressionado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propPedidoCancelar_pressionado
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_propPedidoCancelar_pressionado
-
     private void jDialog_pedidos_fecharDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialog_pedidos_fecharDialog
         // TODO add your handling code here:
     }//GEN-LAST:event_jDialog_pedidos_fecharDialog
@@ -1309,7 +1286,6 @@ public class JanelaCRUD extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_adicionar;
     private javax.swing.JButton jButton_excluir;
-    private javax.swing.JButton jButton_propDetalheAlterar;
     private javax.swing.JButton jButton_propLivroCancelar;
     private javax.swing.JButton jButton_propLivroGeneroEditar;
     private javax.swing.JButton jButton_propLivroGeneroExcluir;
@@ -1317,6 +1293,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private javax.swing.JButton jButton_propLivroOk;
     private javax.swing.JButton jButton_propPedidoCancelar;
     private javax.swing.JButton jButton_propPedidoDetalheAdicionar;
+    private javax.swing.JButton jButton_propPedidoDetalheAlterar;
     private javax.swing.JButton jButton_propPedidoDetalheExcluir;
     private javax.swing.JButton jButton_propPedidoOk;
     private javax.swing.JButton jButton_propUsuariosCancelar;
@@ -1324,7 +1301,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private javax.swing.JButton jButton_visualizar;
     private javax.swing.JComboBox jComboBox_propLivroGenero;
     private javax.swing.JComboBox jComboBox_propPedidoDetalheLivro;
-    private javax.swing.JComboBox jComboBox_propUsuario;
+    private javax.swing.JComboBox jComboBox_propPedidoUsuario;
     private javax.swing.JComboBox jComboBox_propUsuarioUf;
     private javax.swing.JComboBox jComboBox_tabelas;
     private javax.swing.JDialog jDialog_livros;
@@ -1341,7 +1318,6 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jFormattedTextField_propPedidoTipoPag;
     private javax.swing.JFormattedTextField jFormattedTextField_propUsuarioFone;
     private javax.swing.JFormattedTextField jFormattedTextField_propUsuarioId;
-    private javax.swing.JPanel jLabel_;
     private javax.swing.JLabel jLabel_propLivroAno;
     private javax.swing.JLabel jLabel_propLivroAutor;
     private javax.swing.JLabel jLabel_propLivroEditora;
@@ -1370,7 +1346,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_propUsuarioUf;
     private javax.swing.JList jList_lista;
     private javax.swing.JList jList_propLivroPedidos;
-    private javax.swing.JList jList_propPedidoDetalhes;
+    private javax.swing.JList jList_propLivroPedidos1;
     private javax.swing.JList jList_propUsuariosPedidos;
     private javax.swing.JMenuBar jMenuBar_menu;
     private javax.swing.JMenu jMenu_arquivo;
@@ -1379,8 +1355,9 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_propLivroDescricao;
     private javax.swing.JPanel jPanel_propLivroPedidos;
     private javax.swing.JPanel jPanel_propLivros;
+    private javax.swing.JPanel jPanel_propPedido;
     private javax.swing.JPanel jPanel_propPedidoCampos;
-    private javax.swing.JPanel jPanel_propPedidoDetalhes;
+    private javax.swing.JPanel jPanel_propPedidosDetalhes;
     private javax.swing.JPanel jPanel_propUsuarioPedidos;
     private javax.swing.JPanel jPanel_propUsuarios;
     private javax.swing.JPanel jPanel_propUsuariosCampos;
@@ -1404,8 +1381,8 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_propUsuarioLogin;
     private javax.swing.JTextField jTextField_propUsuarioNome;
     private javax.swing.JTextField jTextField_propUsuarioSenha;
-    private javax.swing.JToggleButton jToggleButton_propPedidoAlterar;
     private javax.swing.JToggleButton jToggleButton_propsLivroAlterar;
+    private javax.swing.JToggleButton jToggleButton_propsPedidoAlterar;
     private javax.swing.JToggleButton jToggleButton_propsUsuariosAlterar;
     // End of variables declaration//GEN-END:variables
 
