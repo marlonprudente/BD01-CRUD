@@ -55,7 +55,18 @@ public class GerenciadorTransacoes {
         em.remove(usuario);
         et.commit();
     }
-    
+    public void removerLivro(Livros livro){
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.remove(livro);
+        et.commit();
+    }
+    public void removePedido(Pedidos pedido){
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.remove(pedido);
+        et.commit();
+    }
     public void atualizar(){
         em.getTransaction().commit();
     }
