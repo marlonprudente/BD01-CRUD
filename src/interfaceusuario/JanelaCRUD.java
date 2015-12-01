@@ -1261,7 +1261,53 @@ public class JanelaCRUD extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton_propsUsuariosAlterar_visualizarOuEditar
 
     private void jToggleButton_propsLivroAlterar_visualizarOuEditar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton_propsLivroAlterar_visualizarOuEditar
-        // TODO add your handling code here:
+        if(jToggleButton_propsLivroAlterar.isSelected())
+        {
+            opDialog_livro = OP_ALTERAR;
+            
+            jTextField_propLivroTitulo.setEnabled(true);
+            jTextField_propLivroAutor.setEnabled(true);
+            jTextField_propLivroEditora.setEnabled(true);
+            jFormattedTextField_propLivroAno.setEnabled(true);
+            jFormattedTextField_propLivroEstoque.setEnabled(true);
+            jFormattedTextField_propLivroReserva.setEnabled(true);
+            jComboBox_propLivroGenero.setEnabled(true);
+            jTextArea_propLivroDescricao.setEnabled(true);
+            jFormattedTextField_proLivroPreco.setEnabled(true);       
+
+            jButton_propLivroGeneroNovo.setEnabled(true);
+            jButton_propLivroGeneroEditar.setEnabled(true);
+            jButton_propLivroGeneroExcluir.setEnabled(true);
+        }else{
+            opDialog_livro = OP_VISUALIZAR;
+            
+            jTextField_propLivroTitulo.setEnabled(false);
+            jTextField_propLivroAutor.setEnabled(false);
+            jTextField_propLivroEditora.setEnabled(false);
+            jFormattedTextField_propLivroAno.setEnabled(false);
+            jFormattedTextField_propLivroEstoque.setEnabled(false);
+            jFormattedTextField_propLivroReserva.setEnabled(false);
+            jComboBox_propLivroGenero.setEnabled(false);
+            jTextArea_propLivroDescricao.setEnabled(false);
+            jFormattedTextField_proLivroPreco.setEnabled(false);
+
+            jButton_propLivroGeneroNovo.setEnabled(false);
+            jButton_propLivroGeneroEditar.setEnabled(false);
+            jButton_propLivroGeneroExcluir.setEnabled(false);
+            
+            Livros livro = (Livros) jList_lista.getSelectedValue();
+            
+            jFormattedTextField_propLivroId.setText(String.valueOf(livro.getLivro_id()));        
+            jTextField_propLivroTitulo.setText(livro.getTitulo());        
+            jTextField_propLivroAutor.setText(livro.getAutor());        
+            jTextField_propLivroEditora.setText(livro.getEditora());        
+            jFormattedTextField_propLivroAno.setText(String.valueOf(livro.getAno()));        
+            jFormattedTextField_propLivroEstoque.setText(String.valueOf(livro.getEstoque()));        
+            jFormattedTextField_propLivroReserva.setText(String.valueOf(livro.getReserva()));
+            jComboBox_propLivroGenero.setSelectedItem(livro.getGenero());
+            jTextArea_propLivroDescricao.setText(livro.getDescricao());
+            jFormattedTextField_proLivroPreco.setText(String.valueOf(livro.getPreco()));
+        }
     }//GEN-LAST:event_jToggleButton_propsLivroAlterar_visualizarOuEditar
 
     private void jButton_propLivroOk_aceitar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propLivroOk_aceitar
@@ -1275,7 +1321,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
                 else if(Integer.parseInt(jFormattedTextField_propLivroId.getText()) == 0)
                     JOptionPane.showMessageDialog(jDialog_livros, "O valor de ID não poder ser zero.", "Atenção",  JOptionPane.INFORMATION_MESSAGE);
                 //Se adicionado novo usuário, não deve utiliar ID's repetidos
-                else if(gerTrans.isIdUtilizado(Usuarios.class, Integer.parseInt(jFormattedTextField_propLivroId.getText()))&& opDialog_livro == OP_ADICIONAR)
+                else if(gerTrans.isIdUtilizado(Livros.class, Integer.parseInt(jFormattedTextField_propLivroId.getText()))&& opDialog_livro == OP_ADICIONAR)
                     JOptionPane.showMessageDialog(jDialog_livros, "O valor de ID deve ser único.", "Atenção",  JOptionPane.INFORMATION_MESSAGE);
                 else 
                 {
@@ -1678,6 +1724,8 @@ private void visualizarUsuario(Usuarios usuario) {
         livro.setPreco(Double.parseDouble(jFormattedTextField_proLivroPreco.getText()));
         livro.setEstoque(Integer.parseInt(jFormattedTextField_propLivroEstoque.getText()));
         livro.setReserva(Integer.parseInt(jFormattedTextField_propLivroReserva.getText()));
+        //TODO
+        //Adicionar capa
         livro.setCapa(null);     
         }
 
