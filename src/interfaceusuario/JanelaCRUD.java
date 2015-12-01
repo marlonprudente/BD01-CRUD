@@ -521,8 +521,16 @@ public class JanelaCRUD extends javax.swing.JFrame {
                     jList_lista.setModel(listaUsuarios);
                     break;
                 case 1:
+                    Livros livro = (Livros) jList_lista.getSelectedValue();
+                    gerTrans.removerLivro(livro);
+                    jList_lista.setModel(listaNula);
+                    jList_lista.setModel(listaLivros);
                     break;
                 case 2:
+                    Pedidos pedido = (Pedidos) jList_lista.getSelectedValue();
+                    gerTrans.removePedido(pedido);
+                    jList_lista.setModel(listaNula);
+                    jList_lista.setModel(listaPedidos);
                     break;
                 default:
                     System.out.println("ERROR: ComboBox out of range");
