@@ -9,16 +9,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 
 public class JanelaCRUD extends javax.swing.JFrame {
     //Operação realizado pelos dialogues: Nenhuma, visualizando elementos, adicionando elementos, alterando elementos;
+    //Utilizado para possibilitar usar a mesma janela de dialog para adicionar, visualizar e alterar
     private final byte  OP_NENHUM       = 0, 
                         OP_VISUALIZAR   = 1, 
                         OP_ADICIONAR    = 2, 
                         OP_ALTERAR      = 3;
     
+    //Operações nas janelas de dialogo
     private byte    opDialog_usuario        = OP_NENHUM,
                     opDialog_livro          = OP_NENHUM,
                     opDialog_genero         = OP_NENHUM,
@@ -56,7 +59,8 @@ public class JanelaCRUD extends javax.swing.JFrame {
             @Override
             public Object getElementAt(int index) {return gerTrans.getListaPedidos().get(index);}
         };
-
+        
+        //Utilizado quando deseja-se apenas atualizar a nova lista
         listaNula = new AbstractListModel(){
             @Override
             public int getSize() {return 0;}
@@ -64,6 +68,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
             public Object getElementAt(int index) {return null;}
         };    
         
+        //Seleção do Design
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -330,6 +335,11 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
         jToggleButton_propsUsuariosAlterar.setText("Alterar");
         jToggleButton_propsUsuariosAlterar.setEnabled(false);
+        jToggleButton_propsUsuariosAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton_propsUsuariosAlterarActionPerformed(evt);
+            }
+        });
 
         jButton_propUsuariosOk.setText("Ok");
         jButton_propUsuariosOk.setEnabled(false);
@@ -392,6 +402,11 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
         jButton_visualizar.setText("Visualizar");
         jButton_visualizar.setEnabled(false);
+        jButton_visualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_visualizarActionPerformed(evt);
+            }
+        });
 
         jButton_excluir.setText("Excluir");
         jButton_excluir.setEnabled(false);
@@ -455,6 +470,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox_tabelas_selecaoEfetuada(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_tabelas_selecaoEfetuada
+        //Exibe lista baseadas na seleção do combobox (0-Usuários, 1-Livros, 2-Pedidos)
         switch(jComboBox_tabelas.getSelectedIndex()){
             case 0:
                 jList_lista.setModel(listaUsuarios); 
@@ -474,8 +490,11 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private void jButton_adicionar_novoUsuario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_adicionar_novoUsuario
         switch(jComboBox_tabelas.getSelectedIndex()){
             case 0:
+                //Operação: Adicionar
                 opDialog_usuario = OP_ADICIONAR;
+                //Exibe janela para criação novo usuario
                 novoUsuario();
+                //Atualiza nova lista
                 jList_lista.setModel(listaNula);
                 jList_lista.setModel(listaUsuarios);
                 break;
@@ -488,15 +507,6 @@ public class JanelaCRUD extends javax.swing.JFrame {
             break;
         }
     }//GEN-LAST:event_jButton_adicionar_novoUsuario
-
-    private void jList_listaValueChanged(javax.swing.event.ListSelectionEvent evt) {                                         
-    }                                        
-    private void jDialog_usuarios_fechar(java.awt.event.WindowEvent evt) {                                         
-    }                                        
-    private void jButton_propUsuariosOk_aceitarAdicao(java.awt.event.ActionEvent evt) {                                                      
-    }                                                     
-    private void jButton_propUsuariosCancelarActionPerformed(java.awt.event.ActionEvent evt) {                                                             
-    }                                                            
 
     private void jButton_excluir_pressionado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_excluir_pressionado
         int opcao = JOptionPane.showOptionDialog(jDialog_usuarios, "Deseja mesmo remover este elemento?",
@@ -535,7 +545,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
     }//GEN-LAST:event_jList_lista_selecionada
 
     private void jDialog_usuarios_fecharDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialog_usuarios_fecharDialog
-        if(opDialog_usuario == OP_ADICIONAR)
+        if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
         {
             int opcao = JOptionPane.showOptionDialog(jDialog_usuarios, "Deseja realmente remover alterações efetuadas?",
                 "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -548,29 +558,52 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
     private void jButton_propUsuariosOk_aceitar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propUsuariosOk_aceitar
         try {
-            if(opDialog_usuario == OP_ADICIONAR)
+            if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
             {
+                //ID deve estar preenchido
                 if(jFormattedTextField_propUsuarioId.getText() == null)
                 JOptionPane.showMessageDialog(jDialog_usuarios, "O valor de ID não poder ser nulo.", "Atenção", JOptionPane.INFORMATION_MESSAGE);            
+                //ID não pode ser zero (por alguma razão o JPA não aceita
                 else if(Integer.parseInt(jFormattedTextField_propUsuarioId.getText()) == 0)
                     JOptionPane.showMessageDialog(jDialog_usuarios, "O valor de ID não poder ser zero.", "Atenção",  JOptionPane.INFORMATION_MESSAGE);
-                else if(gerTrans.isIdUtilizado(Usuarios.class, Integer.parseInt(jFormattedTextField_propUsuarioId.getText())))
+                //Se adicionado novo usuário, não deve utiliar ID's repetidos
+                else if(gerTrans.isIdUtilizado(Usuarios.class, Integer.parseInt(jFormattedTextField_propUsuarioId.getText()))&& opDialog_usuario == OP_ADICIONAR)
                     JOptionPane.showMessageDialog(jDialog_usuarios, "O valor de ID deve ser único.", "Atenção",  JOptionPane.INFORMATION_MESSAGE);
                 else 
                 {
-                    int opcao = JOptionPane.showOptionDialog(jDialog_usuarios, "Deseja adicionar um usuário com estas propriedades?",
-                        "Adicionar usuário", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    //Mensagens e titulo das mensagens dos avisos: dependem da opção utilizada (Adicionar ou Alteerar)
+                    String titulo;
+                    String mensagem;
+                    if(opDialog_usuario == OP_ADICIONAR)
+                    {
+                        titulo = "Adicionar usuário";
+                        mensagem = "Deseja adicionar um usuário com estas propriedades?";
+                    }
+                    else
+                    {
+                        titulo = "Alterar usuário";
+                        mensagem = "Deseja realmente alterar as propriedades deste usuário?";
+                    }
+                    //Balão de mensagem de confirmação: 0-Confirma Opção; 1-Recusa Opção
+                    int opcao = JOptionPane.showOptionDialog(jDialog_usuarios, mensagem,
+                        titulo, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
                     if(opcao == 0)                    
                     {
                         Usuarios usuario = new Usuarios();
-                        inserirUsuario(usuario);
-                        gerTrans.adicionarUsuario(usuario);    
+                        if(opDialog_usuario == OP_ALTERAR)
+                            usuario = (Usuarios) jList_lista.getSelectedValue();
+                        inserirUsuario(usuario);                        
+                        gerTrans.persistirUsuario(usuario);    
+                        
                         opDialog_usuario = OP_NENHUM;
-                        WindowListener[] w = (WindowListener[])jDialog_usuarios.getListeners(WindowListener.class);
-                        if(w[0] != null)
-                            w[0].windowClosing(new WindowEvent(jDialog_usuarios,WindowEvent.WINDOW_CLOSING));
+                        fecharDialog(jDialog_usuarios);
                     }
                 }
+            }
+            else
+            {
+                opDialog_usuario = OP_NENHUM;
+                fecharDialog(jDialog_usuarios);
             }
         } catch (Exception ex) {
             Logger.getLogger(JanelaCRUD.class.getName()).log(Level.SEVERE, null, ex);
@@ -578,10 +611,73 @@ public class JanelaCRUD extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_propUsuariosOk_aceitar
 
     private void jButton_propUsuariosCancelar_pressionado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propUsuariosCancelar_pressionado
-        WindowListener[] w = (WindowListener[])jDialog_usuarios.getListeners(WindowListener.class);
-        if(w[0] != null)
-            w[0].windowClosing(new WindowEvent(jDialog_usuarios,WindowEvent.WINDOW_CLOSING));
+        fecharDialog(jDialog_usuarios);
     }//GEN-LAST:event_jButton_propUsuariosCancelar_pressionado
+
+    private void jButton_visualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_visualizarActionPerformed
+        switch(jComboBox_tabelas.getSelectedIndex()){
+            case 0:
+                //Operação: Visualizar
+                opDialog_usuario = OP_VISUALIZAR;
+                //Exibe janela para criação novo usuario
+                visualizarUsuario((Usuarios) jList_lista.getSelectedValue());
+                //Atualiza nova lista
+                jList_lista.setModel(listaNula);
+                jList_lista.setModel(listaUsuarios);
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                System.out.println("ERROR: ComboBox out of range");
+            break;
+        }
+    }//GEN-LAST:event_jButton_visualizarActionPerformed
+
+    private void jToggleButton_propsUsuariosAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton_propsUsuariosAlterarActionPerformed
+        if(jToggleButton_propsUsuariosAlterar.isSelected())
+        {
+            opDialog_usuario = OP_ALTERAR;
+            
+            jTextField_propUsuarioNome.setEnabled(true);
+            jTextField_propUsuarioEndereco.setEnabled(true);
+            jTextField_propUsuarioBairro.setEnabled(true);
+            jTextField_propUsuarioCidade.setEnabled(true);
+            jTextField_propUsuarioLogin.setEnabled(true);
+            jTextField_propUsuarioSenha.setEnabled(true);
+            jComboBox_propUsuarioUf.setEnabled(true);
+            jFormattedTextField_proUsuarioCep.setEnabled(true);
+            jFormattedTextField_propUsuarioFone.setEnabled(true);
+        }
+        else
+        {
+            opDialog_usuario = OP_VISUALIZAR;
+    
+            jTextField_propUsuarioNome.setEnabled(false);
+            jTextField_propUsuarioEndereco.setEnabled(false);
+            jTextField_propUsuarioBairro.setEnabled(false);
+            jTextField_propUsuarioCidade.setEnabled(false);
+            jTextField_propUsuarioLogin.setEnabled(false);
+            jTextField_propUsuarioSenha.setEnabled(false);
+            jComboBox_propUsuarioUf.setEnabled(false);
+            jFormattedTextField_proUsuarioCep.setEnabled(false);
+            jFormattedTextField_propUsuarioFone.setEnabled(false);
+            
+            Usuarios usuario = (Usuarios) jList_lista.getSelectedValue();
+            
+            jFormattedTextField_propUsuarioId.setText(String.valueOf(usuario.getUsuario_id()));
+            jTextField_propUsuarioNome.setText(usuario.getNome());
+            jTextField_propUsuarioEndereco.setText(usuario.getEndereco());
+            jTextField_propUsuarioBairro.setText(usuario.getBairro());
+            jTextField_propUsuarioCidade.setText(usuario.getCidade());
+            jTextField_propUsuarioLogin.setText(usuario.getLogin());
+            jTextField_propUsuarioSenha.setText(usuario.getSenha());
+            jComboBox_propUsuarioUf.setSelectedItem(usuario.getUf());
+            jFormattedTextField_proUsuarioCep.setText(usuario.getCep());
+            jFormattedTextField_propUsuarioFone.setText(usuario.getFone());
+        }
+    }//GEN-LAST:event_jToggleButton_propsUsuariosAlterarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_adicionar;
@@ -659,7 +755,57 @@ private void novoUsuario() {
         jFormattedTextField_propUsuarioFone.setEnabled(false);
 
         jButton_propUsuariosOk.setEnabled(false);
-        jButton_propUsuariosCancelar.setEnabled(false);            
+        jButton_propUsuariosCancelar.setEnabled(false);   
+        jToggleButton_propsUsuariosAlterar.setEnabled(false);
+        
+        jToggleButton_propsUsuariosAlterar.setSelected(false);
+    }
+
+private void visualizarUsuario(Usuarios usuario) {
+        jDialog_usuarios.pack();
+        jDialog_usuarios.setLocationRelativeTo(null);
+
+        jDialog_usuarios.setTitle("Visualizar Usuário");
+
+        jButton_propUsuariosOk.setEnabled(true);
+        jButton_propUsuariosCancelar.setEnabled(true);
+        jToggleButton_propsUsuariosAlterar.setEnabled(true);
+
+        jFormattedTextField_propUsuarioId.setText(String.valueOf(usuario.getUsuario_id()));
+        jTextField_propUsuarioNome.setText(usuario.getNome());
+        jTextField_propUsuarioEndereco.setText(usuario.getEndereco());
+        jTextField_propUsuarioBairro.setText(usuario.getBairro());
+        jTextField_propUsuarioCidade.setText(usuario.getCidade());
+        jTextField_propUsuarioLogin.setText(usuario.getLogin());
+        jTextField_propUsuarioSenha.setText(usuario.getSenha());
+        jComboBox_propUsuarioUf.setSelectedItem(usuario.getUf());
+        jFormattedTextField_proUsuarioCep.setText(usuario.getCep());
+        jFormattedTextField_propUsuarioFone.setText(usuario.getFone());
+        
+        jList_propUsuariosPedidos.setModel(new AbstractListModel() {
+            @Override
+            public int getSize() {return usuario.getPedidos().size();}
+            @Override
+            public Object getElementAt(int index) {return usuario.getPedidos();}
+        });
+        
+        jDialog_usuarios.setVisible(true);
+
+        jFormattedTextField_propUsuarioId.setEnabled(false);
+        jTextField_propUsuarioNome.setEnabled(false);
+        jTextField_propUsuarioEndereco.setEnabled(false);
+        jTextField_propUsuarioBairro.setEnabled(false);
+        jTextField_propUsuarioCidade.setEnabled(false);
+        jTextField_propUsuarioLogin.setEnabled(false);
+        jTextField_propUsuarioSenha.setEnabled(false);
+        jComboBox_propUsuarioUf.setEnabled(false);
+        jFormattedTextField_proUsuarioCep.setEnabled(false);
+        jFormattedTextField_propUsuarioFone.setEnabled(false);
+
+        jButton_propUsuariosOk.setEnabled(false);
+        jButton_propUsuariosCancelar.setEnabled(false);   
+        jToggleButton_propsUsuariosAlterar.setEnabled(false);
+        jToggleButton_propsUsuariosAlterar.setSelected(false);
     }
 
     private void inserirUsuario(Usuarios usuario) {
@@ -678,5 +824,11 @@ private void novoUsuario() {
         } catch (BadLocationException ex) {
             Logger.getLogger(JanelaCRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void fecharDialog(JDialog dialog) {
+        WindowListener[] w = (WindowListener[])dialog.getListeners(WindowListener.class);
+        if(w[0] != null)
+            w[0].windowClosing(new WindowEvent(dialog,WindowEvent.WINDOW_CLOSING));
     }
 }
