@@ -164,6 +164,40 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jToggleButton_propsLivroAlterar = new javax.swing.JToggleButton();
         jButton_propLivroOk = new javax.swing.JButton();
         jButton_propLivroCancelar = new javax.swing.JButton();
+        jDialog_pedidos = new javax.swing.JDialog();
+        jScrollPane_propLivros1 = new javax.swing.JScrollPane();
+        jPanel_propLivros1 = new javax.swing.JPanel();
+        jPanel_propLivroPedidos1 = new javax.swing.JPanel();
+        jScrollPane_propLivroPedidos1 = new javax.swing.JScrollPane();
+        jList_propLivroPedidos1 = new javax.swing.JList();
+        jPanel_propLivroCampos1 = new javax.swing.JPanel();
+        jLabel_propLivroId1 = new javax.swing.JLabel();
+        jFormattedTextField_propLivroId1 = new javax.swing.JFormattedTextField();
+        jLabel_propLivroTitulo1 = new javax.swing.JLabel();
+        jTextField_propLivroTitulo1 = new javax.swing.JTextField();
+        jLabel_propLivroAutor1 = new javax.swing.JLabel();
+        jTextField_propLivroAutor1 = new javax.swing.JTextField();
+        jLabel_propLivroEditora1 = new javax.swing.JLabel();
+        jTextField_propLivroEditora1 = new javax.swing.JTextField();
+        jLabel_propLivroAno1 = new javax.swing.JLabel();
+        jTextField_propLivroAno1 = new javax.swing.JTextField();
+        jLabel_propLivroGenero1 = new javax.swing.JLabel();
+        jComboBox_propLivroGenero1 = new javax.swing.JComboBox();
+        jButton_propLivroGeneroNovo1 = new javax.swing.JButton();
+        jButton_propLivroGeneroEditar1 = new javax.swing.JButton();
+        jButton_propLivroGeneroExcluir1 = new javax.swing.JButton();
+        jLabel_propLivroPreco1 = new javax.swing.JLabel();
+        jFormattedTextField_proLivroPreco1 = new javax.swing.JFormattedTextField();
+        jLabel_propLivroEstoque1 = new javax.swing.JLabel();
+        jFormattedTextField_propLivroEstoque1 = new javax.swing.JFormattedTextField();
+        jLabel_propLivroReserva1 = new javax.swing.JLabel();
+        jTextField_propLivroReserva1 = new javax.swing.JTextField();
+        jPanel_propLivroDescricao1 = new javax.swing.JPanel();
+        jScrollPane_propLivroDescricao1 = new javax.swing.JScrollPane();
+        jTextArea_propLivroDescricao1 = new javax.swing.JTextArea();
+        jToggleButton_propsLivroAlterar1 = new javax.swing.JToggleButton();
+        jButton_propLivroOk1 = new javax.swing.JButton();
+        jButton_propLivroCancelar1 = new javax.swing.JButton();
         jScrollPane_lista = new javax.swing.JScrollPane();
         jList_lista = new javax.swing.JList();
         jButton_adicionar = new javax.swing.JButton();
@@ -702,6 +736,286 @@ public class JanelaCRUD extends javax.swing.JFrame {
                     .addComponent(jButton_propLivroCancelar)))
         );
 
+        jDialog_pedidos.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        jDialog_pedidos.setModal(true);
+        jDialog_pedidos.setType(java.awt.Window.Type.UTILITY);
+        jDialog_pedidos.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                jDialog_pedidos_fecharDialog(evt);
+            }
+        });
+
+        jPanel_propLivroPedidos1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedidos"));
+
+        jList_propLivroPedidos1.setEnabled(false);
+        jScrollPane_propLivroPedidos1.setViewportView(jList_propLivroPedidos1);
+
+        javax.swing.GroupLayout jPanel_propLivroPedidos1Layout = new javax.swing.GroupLayout(jPanel_propLivroPedidos1);
+        jPanel_propLivroPedidos1.setLayout(jPanel_propLivroPedidos1Layout);
+        jPanel_propLivroPedidos1Layout.setHorizontalGroup(
+            jPanel_propLivroPedidos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane_propLivroPedidos1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+        );
+        jPanel_propLivroPedidos1Layout.setVerticalGroup(
+            jPanel_propLivroPedidos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane_propLivroPedidos1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+        );
+
+        jPanel_propLivroCampos1.setBorder(javax.swing.BorderFactory.createTitledBorder("Livro"));
+
+        jLabel_propLivroId1.setText("ID:");
+
+        jFormattedTextField_propLivroId1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jFormattedTextField_propLivroId1.setText("99");
+        jFormattedTextField_propLivroId1.setEnabled(false);
+
+        jLabel_propLivroTitulo1.setText("Titulo:");
+
+        jTextField_propLivroTitulo1.setText("--");
+        jTextField_propLivroTitulo1.setEnabled(false);
+
+        jLabel_propLivroAutor1.setText("Autor:");
+
+        jTextField_propLivroAutor1.setText("--");
+        jTextField_propLivroAutor1.setEnabled(false);
+
+        jLabel_propLivroEditora1.setText("Editora:");
+
+        jTextField_propLivroEditora1.setText("--");
+        jTextField_propLivroEditora1.setEnabled(false);
+
+        jLabel_propLivroAno1.setText("Ano:");
+
+        jTextField_propLivroAno1.setText("--");
+        jTextField_propLivroAno1.setEnabled(false);
+
+        jLabel_propLivroGenero1.setText("Gênero:");
+
+        jComboBox_propLivroGenero1.setEnabled(false);
+
+        jButton_propLivroGeneroNovo1.setText("Novo");
+        jButton_propLivroGeneroNovo1.setEnabled(false);
+        jButton_propLivroGeneroNovo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_propLivroGeneroNovo1ActionPerformed(evt);
+            }
+        });
+
+        jButton_propLivroGeneroEditar1.setText("Editar");
+        jButton_propLivroGeneroEditar1.setEnabled(false);
+
+        jButton_propLivroGeneroExcluir1.setText("Excluir");
+        jButton_propLivroGeneroExcluir1.setEnabled(false);
+        jButton_propLivroGeneroExcluir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_propLivroGeneroExcluir1ActionPerformed(evt);
+            }
+        });
+
+        jLabel_propLivroPreco1.setText("Preço:");
+
+        jFormattedTextField_proLivroPreco1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("R¤#,##0.00;(R¤#,##0.00)"))));
+        jFormattedTextField_proLivroPreco1.setText("R$0.00");
+        jFormattedTextField_proLivroPreco1.setEnabled(false);
+
+        jLabel_propLivroEstoque1.setText("Estoque:");
+
+        jFormattedTextField_propLivroEstoque1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        jFormattedTextField_propLivroEstoque1.setEnabled(false);
+
+        jLabel_propLivroReserva1.setText("Reserva:");
+
+        jTextField_propLivroReserva1.setText("--");
+        jTextField_propLivroReserva1.setEnabled(false);
+
+        jPanel_propLivroDescricao1.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição"));
+
+        jTextArea_propLivroDescricao1.setColumns(20);
+        jTextArea_propLivroDescricao1.setRows(5);
+        jTextArea_propLivroDescricao1.setEnabled(false);
+        jScrollPane_propLivroDescricao1.setViewportView(jTextArea_propLivroDescricao1);
+
+        javax.swing.GroupLayout jPanel_propLivroDescricao1Layout = new javax.swing.GroupLayout(jPanel_propLivroDescricao1);
+        jPanel_propLivroDescricao1.setLayout(jPanel_propLivroDescricao1Layout);
+        jPanel_propLivroDescricao1Layout.setHorizontalGroup(
+            jPanel_propLivroDescricao1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane_propLivroDescricao1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        jPanel_propLivroDescricao1Layout.setVerticalGroup(
+            jPanel_propLivroDescricao1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane_propLivroDescricao1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel_propLivroCampos1Layout = new javax.swing.GroupLayout(jPanel_propLivroCampos1);
+        jPanel_propLivroCampos1.setLayout(jPanel_propLivroCampos1Layout);
+        jPanel_propLivroCampos1Layout.setHorizontalGroup(
+            jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton_propLivroGeneroNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_propLivroGeneroEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_propLivroGeneroExcluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jTextField_propLivroReserva1))
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jFormattedTextField_propLivroEstoque1))
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jFormattedTextField_proLivroPreco1))
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jTextField_propLivroAutor1))
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jTextField_propLivroAno1))
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jTextField_propLivroEditora1))
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jTextField_propLivroTitulo1))
+            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jComboBox_propLivroGenero1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jFormattedTextField_propLivroId1))
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel_propLivroEditora1)
+                    .addComponent(jLabel_propLivroAutor1)
+                    .addComponent(jLabel_propLivroAno1)
+                    .addComponent(jLabel_propLivroGenero1)
+                    .addComponent(jLabel_propLivroPreco1)
+                    .addComponent(jLabel_propLivroEstoque1)
+                    .addComponent(jLabel_propLivroReserva1)
+                    .addComponent(jLabel_propLivroTitulo1)
+                    .addComponent(jLabel_propLivroId1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel_propLivroDescricao1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel_propLivroCampos1Layout.setVerticalGroup(
+            jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_propLivroCampos1Layout.createSequentialGroup()
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_propLivroId1)
+                    .addComponent(jFormattedTextField_propLivroId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_propLivroTitulo1)
+                    .addComponent(jTextField_propLivroTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_propLivroAutor1)
+                    .addComponent(jTextField_propLivroAutor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_propLivroEditora1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_propLivroEditora1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_propLivroAno1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_propLivroAno1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_propLivroGenero1)
+                    .addComponent(jComboBox_propLivroGenero1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_propLivroGeneroNovo1)
+                    .addComponent(jButton_propLivroGeneroEditar1)
+                    .addComponent(jButton_propLivroGeneroExcluir1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFormattedTextField_proLivroPreco1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_propLivroPreco1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFormattedTextField_propLivroEstoque1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_propLivroEstoque1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_propLivroCampos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_propLivroReserva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_propLivroReserva1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel_propLivroDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jPanel_propLivros1Layout = new javax.swing.GroupLayout(jPanel_propLivros1);
+        jPanel_propLivros1.setLayout(jPanel_propLivros1Layout);
+        jPanel_propLivros1Layout.setHorizontalGroup(
+            jPanel_propLivros1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_propLivros1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_propLivros1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel_propLivroCampos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel_propLivroPedidos1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel_propLivros1Layout.setVerticalGroup(
+            jPanel_propLivros1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_propLivros1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel_propLivroCampos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_propLivroPedidos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jScrollPane_propLivros1.setViewportView(jPanel_propLivros1);
+
+        jToggleButton_propsLivroAlterar1.setText("Alterar");
+        jToggleButton_propsLivroAlterar1.setEnabled(false);
+        jToggleButton_propsLivroAlterar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton_propsLivroAlterar1_visualizarOuEditar(evt);
+            }
+        });
+
+        jButton_propLivroOk1.setText("Ok");
+        jButton_propLivroOk1.setEnabled(false);
+        jButton_propLivroOk1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_propLivroOk1_aceitar(evt);
+            }
+        });
+
+        jButton_propLivroCancelar1.setText("Cancelar");
+        jButton_propLivroCancelar1.setEnabled(false);
+        jButton_propLivroCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_propLivroCancelar1_pressionado(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDialog_pedidosLayout = new javax.swing.GroupLayout(jDialog_pedidos.getContentPane());
+        jDialog_pedidos.getContentPane().setLayout(jDialog_pedidosLayout);
+        jDialog_pedidosLayout.setHorizontalGroup(
+            jDialog_pedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog_pedidosLayout.createSequentialGroup()
+                .addComponent(jToggleButton_propsLivroAlterar1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton_propLivroOk1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_propLivroCancelar1))
+            .addComponent(jScrollPane_propLivros1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+        );
+        jDialog_pedidosLayout.setVerticalGroup(
+            jDialog_pedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog_pedidosLayout.createSequentialGroup()
+                .addComponent(jScrollPane_propLivros1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jDialog_pedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton_propsLivroAlterar1)
+                    .addComponent(jButton_propLivroOk1)
+                    .addComponent(jButton_propLivroCancelar1)))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jList_lista.setModel(listaUsuarios);
@@ -1022,37 +1336,80 @@ public class JanelaCRUD extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_propLivroGeneroExcluirActionPerformed
 
+    private void jButton_propLivroGeneroNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propLivroGeneroNovo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_propLivroGeneroNovo1ActionPerformed
+
+    private void jButton_propLivroGeneroExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propLivroGeneroExcluir1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_propLivroGeneroExcluir1ActionPerformed
+
+    private void jToggleButton_propsLivroAlterar1_visualizarOuEditar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton_propsLivroAlterar1_visualizarOuEditar
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton_propsLivroAlterar1_visualizarOuEditar
+
+    private void jButton_propLivroOk1_aceitar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propLivroOk1_aceitar
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_propLivroOk1_aceitar
+
+    private void jButton_propLivroCancelar1_pressionado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propLivroCancelar1_pressionado
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_propLivroCancelar1_pressionado
+
+    private void jDialog_pedidos_fecharDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialog_pedidos_fecharDialog
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDialog_pedidos_fecharDialog
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_adicionar;
     private javax.swing.JButton jButton_excluir;
     private javax.swing.JButton jButton_propLivroCancelar;
+    private javax.swing.JButton jButton_propLivroCancelar1;
     private javax.swing.JButton jButton_propLivroGeneroEditar;
+    private javax.swing.JButton jButton_propLivroGeneroEditar1;
     private javax.swing.JButton jButton_propLivroGeneroExcluir;
+    private javax.swing.JButton jButton_propLivroGeneroExcluir1;
     private javax.swing.JButton jButton_propLivroGeneroNovo;
+    private javax.swing.JButton jButton_propLivroGeneroNovo1;
     private javax.swing.JButton jButton_propLivroOk;
+    private javax.swing.JButton jButton_propLivroOk1;
     private javax.swing.JButton jButton_propUsuariosCancelar;
     private javax.swing.JButton jButton_propUsuariosOk;
     private javax.swing.JButton jButton_visualizar;
     private javax.swing.JComboBox jComboBox_propLivroGenero;
+    private javax.swing.JComboBox jComboBox_propLivroGenero1;
     private javax.swing.JComboBox jComboBox_propUsuarioUf;
     private javax.swing.JComboBox jComboBox_tabelas;
     private javax.swing.JDialog jDialog_livros;
+    private javax.swing.JDialog jDialog_pedidos;
     private javax.swing.JDialog jDialog_usuarios;
     private javax.swing.JFormattedTextField jFormattedTextField_proLivroPreco;
+    private javax.swing.JFormattedTextField jFormattedTextField_proLivroPreco1;
     private javax.swing.JFormattedTextField jFormattedTextField_proUsuarioCep;
     private javax.swing.JFormattedTextField jFormattedTextField_propLivroEstoque;
+    private javax.swing.JFormattedTextField jFormattedTextField_propLivroEstoque1;
     private javax.swing.JFormattedTextField jFormattedTextField_propLivroId;
+    private javax.swing.JFormattedTextField jFormattedTextField_propLivroId1;
     private javax.swing.JFormattedTextField jFormattedTextField_propUsuarioFone;
     private javax.swing.JFormattedTextField jFormattedTextField_propUsuarioId;
     private javax.swing.JLabel jLabel_propLivroAno;
+    private javax.swing.JLabel jLabel_propLivroAno1;
     private javax.swing.JLabel jLabel_propLivroAutor;
+    private javax.swing.JLabel jLabel_propLivroAutor1;
     private javax.swing.JLabel jLabel_propLivroEditora;
+    private javax.swing.JLabel jLabel_propLivroEditora1;
     private javax.swing.JLabel jLabel_propLivroEstoque;
+    private javax.swing.JLabel jLabel_propLivroEstoque1;
     private javax.swing.JLabel jLabel_propLivroGenero;
+    private javax.swing.JLabel jLabel_propLivroGenero1;
     private javax.swing.JLabel jLabel_propLivroId;
+    private javax.swing.JLabel jLabel_propLivroId1;
     private javax.swing.JLabel jLabel_propLivroPreco;
+    private javax.swing.JLabel jLabel_propLivroPreco1;
     private javax.swing.JLabel jLabel_propLivroReserva;
+    private javax.swing.JLabel jLabel_propLivroReserva1;
     private javax.swing.JLabel jLabel_propLivroTitulo;
+    private javax.swing.JLabel jLabel_propLivroTitulo1;
     private javax.swing.JLabel jLabel_propUsuarioBairro;
     private javax.swing.JLabel jLabel_propUsuarioCep;
     private javax.swing.JLabel jLabel_propUsuarioCidade;
@@ -1065,29 +1422,43 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_propUsuarioUf;
     private javax.swing.JList jList_lista;
     private javax.swing.JList jList_propLivroPedidos;
+    private javax.swing.JList jList_propLivroPedidos1;
     private javax.swing.JList jList_propUsuariosPedidos;
     private javax.swing.JMenuBar jMenuBar_menu;
     private javax.swing.JMenu jMenu_arquivo;
     private javax.swing.JMenu jMenu_editar;
     private javax.swing.JPanel jPanel_propLivroCampos;
+    private javax.swing.JPanel jPanel_propLivroCampos1;
     private javax.swing.JPanel jPanel_propLivroDescricao;
+    private javax.swing.JPanel jPanel_propLivroDescricao1;
     private javax.swing.JPanel jPanel_propLivroPedidos;
+    private javax.swing.JPanel jPanel_propLivroPedidos1;
     private javax.swing.JPanel jPanel_propLivros;
+    private javax.swing.JPanel jPanel_propLivros1;
     private javax.swing.JPanel jPanel_propUsuarioPedidos;
     private javax.swing.JPanel jPanel_propUsuarios;
     private javax.swing.JPanel jPanel_propUsuariosCampos;
     private javax.swing.JScrollPane jScrollPane_lista;
     private javax.swing.JScrollPane jScrollPane_propLivroDescricao;
+    private javax.swing.JScrollPane jScrollPane_propLivroDescricao1;
     private javax.swing.JScrollPane jScrollPane_propLivroPedidos;
+    private javax.swing.JScrollPane jScrollPane_propLivroPedidos1;
     private javax.swing.JScrollPane jScrollPane_propLivros;
+    private javax.swing.JScrollPane jScrollPane_propLivros1;
     private javax.swing.JScrollPane jScrollPane_propUsuarios;
     private javax.swing.JScrollPane jScrollPane_propUsuariosPedidos;
     private javax.swing.JTextArea jTextArea_propLivroDescricao;
+    private javax.swing.JTextArea jTextArea_propLivroDescricao1;
     private javax.swing.JTextField jTextField_propLivroAno;
+    private javax.swing.JTextField jTextField_propLivroAno1;
     private javax.swing.JTextField jTextField_propLivroAutor;
+    private javax.swing.JTextField jTextField_propLivroAutor1;
     private javax.swing.JTextField jTextField_propLivroEditora;
+    private javax.swing.JTextField jTextField_propLivroEditora1;
     private javax.swing.JTextField jTextField_propLivroReserva;
+    private javax.swing.JTextField jTextField_propLivroReserva1;
     private javax.swing.JTextField jTextField_propLivroTitulo;
+    private javax.swing.JTextField jTextField_propLivroTitulo1;
     private javax.swing.JTextField jTextField_propUsuarioBairro;
     private javax.swing.JTextField jTextField_propUsuarioCidade;
     private javax.swing.JTextField jTextField_propUsuarioEndereco;
@@ -1095,6 +1466,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_propUsuarioNome;
     private javax.swing.JTextField jTextField_propUsuarioSenha;
     private javax.swing.JToggleButton jToggleButton_propsLivroAlterar;
+    private javax.swing.JToggleButton jToggleButton_propsLivroAlterar1;
     private javax.swing.JToggleButton jToggleButton_propsUsuariosAlterar;
     // End of variables declaration//GEN-END:variables
 
