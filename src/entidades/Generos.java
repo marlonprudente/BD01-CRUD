@@ -28,7 +28,7 @@ public class Generos implements Serializable {
     }
 
     public Integer getGenero_id()                   {return genero_id;}
-    public void setDescricao(Integer genero_id)     {this.genero_id = genero_id;}
+    public void setGenero_id(Integer genero_id)     {this.genero_id = genero_id;}
 
     public String getDescricao()                {return descricao;}
     public void setDescricao(String descricao)  {this.descricao = descricao;}

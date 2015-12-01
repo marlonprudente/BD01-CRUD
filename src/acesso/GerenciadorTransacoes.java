@@ -49,6 +49,13 @@ public class GerenciadorTransacoes {
         et.commit();
     }
     
+    public void persistirGenero(Generos genero) {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.persist(genero);
+        et.commit();
+    }
+    
     public void persistirUsuario(Usuarios usuario){
         EntityTransaction et = em.getTransaction();
         et.begin();
@@ -68,6 +75,13 @@ public class GerenciadorTransacoes {
         em.remove(livro);
         et.commit();
     }
+
+    public void removeGenero(Generos genero) {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.remove(genero);
+        et.commit();    }
+    
     public void removePedido(Pedidos pedido){
         EntityTransaction et = em.getTransaction();
         et.begin();
@@ -77,4 +91,5 @@ public class GerenciadorTransacoes {
     public void atualizar(){
         em.getTransaction().commit();
     }
+
 }

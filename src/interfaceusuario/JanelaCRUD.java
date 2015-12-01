@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
@@ -504,6 +505,11 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jLabel_propLivroGenero.setText("Gênero:");
 
         jComboBox_propLivroGenero.setEnabled(false);
+        jComboBox_propLivroGenero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_propLivroGeneroActionPerformed(evt);
+            }
+        });
 
         jButton_propLivroGeneroNovo.setText("Novo");
         jButton_propLivroGeneroNovo.setEnabled(false);
@@ -1381,11 +1387,54 @@ public class JanelaCRUD extends javax.swing.JFrame {
     }//GEN-LAST:event_jDialog_livros_fecharDialog
 
     private void jButton_propLivroGeneroNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propLivroGeneroNovoActionPerformed
-        // TODO add your handling code here:
+        String descricao = JOptionPane.showInputDialog("Insira a descrição do genero desejado:");
+        if(descricao == null)
+            return;
+        String id;
+        do
+        {
+            try {
+                id = JOptionPane.showInputDialog("Insira o ID do genero desejado:");
+                if(id == null)
+                    return;
+                if(Integer.parseInt(id) == 0)
+                {
+                    JOptionPane.showMessageDialog(jDialog_livros, "O ID não pode ser zero.");
+                    continue;
+                }
+                if(gerTrans.isIdUtilizado(Generos.class, Integer.parseInt(id)))
+                {
+                    JOptionPane.showMessageDialog(jDialog_livros, "O ID não deve ter sido já utilizado.");
+                    continue;
+                }
+                break;
+            } catch (Exception ex) {
+                Logger.getLogger(JanelaCRUD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        while(true);
+        
+        Generos genero = new Generos();
+        genero.setDescricao(descricao);
+        genero.setGenero_id(Integer.parseInt(id));
+        gerTrans.persistirGenero(genero);
+        
+        jComboBox_propLivroGenero.setModel(new DefaultComboBoxModel(gerTrans.getListaGeneros().toArray()));
+        jComboBox_propLivroGenero.setSelectedItem(genero);
+        JOptionPane.showMessageDialog(jDialog_livros, "Genero inserido com sucesso.");
     }//GEN-LAST:event_jButton_propLivroGeneroNovoActionPerformed
 
     private void jButton_propLivroGeneroExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propLivroGeneroExcluirActionPerformed
-        // TODO add your handling code here:
+        int index = jComboBox_propLivroGenero.getSelectedIndex();
+        Generos genero = (Generos) jComboBox_propLivroGenero.getSelectedItem();
+        gerTrans.removeGenero(genero);
+        
+        List<Generos> lista = gerTrans.getListaGeneros();
+        jComboBox_propLivroGenero.setModel(new DefaultComboBoxModel(lista.toArray()));
+        if(index < lista.size())
+            jComboBox_propLivroGenero.setSelectedIndex(index);
+        else
+            jComboBox_propLivroGenero.setSelectedIndex(lista.size()-1);
     }//GEN-LAST:event_jButton_propLivroGeneroExcluirActionPerformed
 
     private void jToggleButton_propPedidoAlterar_visualizarOuEditar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton_propPedidoAlterar_visualizarOuEditar
@@ -1402,6 +1451,10 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
         }
         opDialog_usuario = OP_NENHUM;
         evt.getWindow().dispose();    }//GEN-LAST:event_jDialog_pedidos_fecharDialog
+
+    private void jComboBox_propLivroGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_propLivroGeneroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox_propLivroGeneroActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_adicionar;
@@ -1506,96 +1559,97 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
     private javax.swing.JToggleButton jToggleButton_propsUsuariosAlterar;
     // End of variables declaration//GEN-END:variables
 
-private void novoUsuario() {
-    jDialog_usuarios.pack();
-    jDialog_usuarios.setLocationRelativeTo(null);
+    private void novoUsuario() {
+        jDialog_usuarios.pack();
+        jDialog_usuarios.setLocationRelativeTo(null);
 
-    jDialog_usuarios.setTitle("Adicionar Usuário");
+        jDialog_usuarios.setTitle("Adicionar Usuário");
 
-    jFormattedTextField_propUsuarioId.setEnabled(true);
-    jTextField_propUsuarioNome.setEnabled(true);
-    jTextField_propUsuarioEndereco.setEnabled(true);
-    jTextField_propUsuarioBairro.setEnabled(true);
-    jTextField_propUsuarioCidade.setEnabled(true);
-    jTextField_propUsuarioLogin.setEnabled(true);
-    jTextField_propUsuarioSenha.setEnabled(true);
-    jComboBox_propUsuarioUf.setEnabled(true);
-    jFormattedTextField_proUsuarioCep.setEnabled(true);
-    jFormattedTextField_propUsuarioFone.setEnabled(true);
+        jFormattedTextField_propUsuarioId.setEnabled(true);
+        jTextField_propUsuarioNome.setEnabled(true);
+        jTextField_propUsuarioEndereco.setEnabled(true);
+        jTextField_propUsuarioBairro.setEnabled(true);
+        jTextField_propUsuarioCidade.setEnabled(true);
+        jTextField_propUsuarioLogin.setEnabled(true);
+        jTextField_propUsuarioSenha.setEnabled(true);
+        jComboBox_propUsuarioUf.setEnabled(true);
+        jFormattedTextField_proUsuarioCep.setEnabled(true);
+        jFormattedTextField_propUsuarioFone.setEnabled(true);
 
-    jButton_propUsuariosOk.setEnabled(true);
-    jButton_propUsuariosCancelar.setEnabled(true);
+        jButton_propUsuariosOk.setEnabled(true);
+        jButton_propUsuariosCancelar.setEnabled(true);
 
-    jDialog_usuarios.setVisible(true);
+        jDialog_usuarios.setVisible(true);
 
-    jFormattedTextField_propUsuarioId.setEnabled(false);
-    jTextField_propUsuarioNome.setEnabled(false);
-    jTextField_propUsuarioEndereco.setEnabled(false);
-    jTextField_propUsuarioBairro.setEnabled(false);
-    jTextField_propUsuarioCidade.setEnabled(false);
-    jTextField_propUsuarioLogin.setEnabled(false);
-    jTextField_propUsuarioSenha.setEnabled(false);
-    jComboBox_propUsuarioUf.setEnabled(false);
-    jFormattedTextField_proUsuarioCep.setEnabled(false);
-    jFormattedTextField_propUsuarioFone.setEnabled(false);
+        jFormattedTextField_propUsuarioId.setEnabled(false);
+        jTextField_propUsuarioNome.setEnabled(false);
+        jTextField_propUsuarioEndereco.setEnabled(false);
+        jTextField_propUsuarioBairro.setEnabled(false);
+        jTextField_propUsuarioCidade.setEnabled(false);
+        jTextField_propUsuarioLogin.setEnabled(false);
+        jTextField_propUsuarioSenha.setEnabled(false);
+        jComboBox_propUsuarioUf.setEnabled(false);
+        jFormattedTextField_proUsuarioCep.setEnabled(false);
+        jFormattedTextField_propUsuarioFone.setEnabled(false);
 
-    jButton_propUsuariosOk.setEnabled(false);
-    jButton_propUsuariosCancelar.setEnabled(false);   
-    jToggleButton_propsUsuariosAlterar.setEnabled(false);
+        jButton_propUsuariosOk.setEnabled(false);
+        jButton_propUsuariosCancelar.setEnabled(false);   
+        jToggleButton_propsUsuariosAlterar.setEnabled(false);
 
-    jToggleButton_propsUsuariosAlterar.setSelected(false);
-}
+        jToggleButton_propsUsuariosAlterar.setSelected(false);
+    }
 
-private void novoLivro(){
-    jDialog_livros.pack();
-    jDialog_livros.setLocationRelativeTo(null);
+    private void novoLivro(){
+        jDialog_livros.pack();
+        jDialog_livros.setLocationRelativeTo(null);
 
-    jDialog_livros.setTitle("Adicionar Livro");
+        jDialog_livros.setTitle("Adicionar Livro");
 
-    jFormattedTextField_propLivroId.setEnabled(true);
-    jTextField_propLivroTitulo.setEnabled(true);
-    jTextField_propLivroAutor.setEnabled(true);
-    jTextField_propLivroEditora.setEnabled(true);
-    jFormattedTextField_propLivroAno.setEnabled(true);
-    jFormattedTextField_propLivroEstoque.setEnabled(true);
-    jFormattedTextField_propLivroReserva.setEnabled(true);
-    jComboBox_propLivroGenero.setEnabled(true);
-    jTextArea_propLivroDescricao.setEnabled(true);
-    jFormattedTextField_proLivroPreco.setEnabled(true);       
-    
-    jButton_propLivroGeneroNovo.setEnabled(true);
-    jButton_propLivroGeneroEditar.setEnabled(true);
-    jButton_propLivroGeneroExcluir.setEnabled(true);
+        jFormattedTextField_propLivroId.setEnabled(true);
+        jTextField_propLivroTitulo.setEnabled(true);
+        jTextField_propLivroAutor.setEnabled(true);
+        jTextField_propLivroEditora.setEnabled(true);
+        jFormattedTextField_propLivroAno.setEnabled(true);
+        jFormattedTextField_propLivroEstoque.setEnabled(true);
+        jFormattedTextField_propLivroReserva.setEnabled(true);
+        jComboBox_propLivroGenero.setEnabled(true);
+        jTextArea_propLivroDescricao.setEnabled(true);
+        jFormattedTextField_proLivroPreco.setEnabled(true);       
 
-    jButton_propLivroOk.setEnabled(true);
-    jButton_propLivroCancelar.setEnabled(true);
+        jButton_propLivroGeneroNovo.setEnabled(true);
+        jButton_propLivroGeneroEditar.setEnabled(true);
+        jButton_propLivroGeneroExcluir.setEnabled(true);
 
-    jComboBox_propLivroGenero.setModel(new DefaultComboBoxModel(gerTrans.getListaGeneros().toArray()));
-    jDialog_livros.setVisible(true);
+        jButton_propLivroOk.setEnabled(true);
+        jButton_propLivroCancelar.setEnabled(true);
 
-    jFormattedTextField_propLivroId.setEnabled(false);
-    jTextField_propLivroTitulo.setEnabled(false);
-    jTextField_propLivroAutor.setEnabled(false);
-    jTextField_propLivroEditora.setEnabled(false);
-    jFormattedTextField_propLivroAno.setEnabled(false);
-    jFormattedTextField_propLivroEstoque.setEnabled(false);
-    jFormattedTextField_propLivroReserva.setEnabled(false);
-    jComboBox_propLivroGenero.setEnabled(false);
-    jTextArea_propLivroDescricao.setEnabled(false);
-    jFormattedTextField_proLivroPreco.setEnabled(false);
-    
-    jButton_propLivroGeneroNovo.setEnabled(false);
-    jButton_propLivroGeneroEditar.setEnabled(false);
-    jButton_propLivroGeneroExcluir.setEnabled(false);
+        jComboBox_propLivroGenero.setModel(new DefaultComboBoxModel(gerTrans.getListaGeneros().toArray()));
 
-    jButton_propLivroOk.setEnabled(false);
-    jButton_propLivroCancelar.setEnabled(false);   
-    jToggleButton_propsLivroAlterar.setEnabled(false);
+        jDialog_livros.setVisible(true);
 
-    jToggleButton_propsLivroAlterar.setSelected(false);
-}
+        jFormattedTextField_propLivroId.setEnabled(false);
+        jTextField_propLivroTitulo.setEnabled(false);
+        jTextField_propLivroAutor.setEnabled(false);
+        jTextField_propLivroEditora.setEnabled(false);
+        jFormattedTextField_propLivroAno.setEnabled(false);
+        jFormattedTextField_propLivroEstoque.setEnabled(false);
+        jFormattedTextField_propLivroReserva.setEnabled(false);
+        jComboBox_propLivroGenero.setEnabled(false);
+        jTextArea_propLivroDescricao.setEnabled(false);
+        jFormattedTextField_proLivroPreco.setEnabled(false);
 
-private void visualizarUsuario(Usuarios usuario) {
+        jButton_propLivroGeneroNovo.setEnabled(false);
+        jButton_propLivroGeneroEditar.setEnabled(false);
+        jButton_propLivroGeneroExcluir.setEnabled(false);
+
+        jButton_propLivroOk.setEnabled(false);
+        jButton_propLivroCancelar.setEnabled(false);   
+        jToggleButton_propsLivroAlterar.setEnabled(false);
+
+        jToggleButton_propsLivroAlterar.setSelected(false);
+    }
+
+    private void visualizarUsuario(Usuarios usuario) {
         jDialog_usuarios.pack();
         jDialog_usuarios.setLocationRelativeTo(null);
 
@@ -1641,6 +1695,7 @@ private void visualizarUsuario(Usuarios usuario) {
         jToggleButton_propsUsuariosAlterar.setEnabled(false);
         jToggleButton_propsUsuariosAlterar.setSelected(false);
     }
+    
     private void visualizarLivro(Livros livro){
         jDialog_livros.pack();
         jDialog_usuarios.setLocationRelativeTo(null);
@@ -1663,16 +1718,16 @@ private void visualizarUsuario(Usuarios usuario) {
         jComboBox_propLivroGenero.setSelectedItem(livro.getGenero());
         jTextArea_propLivroDescricao.setText(livro.getDescricao());
         jFormattedTextField_proLivroPreco.setText(String.valueOf(livro.getPreco()));
-        
+
         jList_propLivroPedidos.setModel(new AbstractListModel() {
             @Override
             public int getSize() {return livro.getPedidos().size();}
             @Override
             public Object getElementAt(int index) {return livro.getPedidos();}
         });
-        
+
         jDialog_livros.setVisible(true);
-        
+
         jFormattedTextField_propLivroId.setEnabled(false);
         jTextField_propLivroTitulo.setEnabled(false);
         jTextField_propLivroAutor.setEnabled(false);
@@ -1683,15 +1738,15 @@ private void visualizarUsuario(Usuarios usuario) {
         jComboBox_propLivroGenero.setEnabled(false);
         jTextArea_propLivroDescricao.setEnabled(false);
         jFormattedTextField_proLivroPreco.setEnabled(false);
-        
+
         jButton_propLivroGeneroNovo.setEnabled(false);
         jButton_propLivroGeneroEditar.setEnabled(false);
         jButton_propLivroGeneroExcluir.setEnabled(false);
-        
+
         jButton_propLivroOk.setEnabled(false);
         jButton_propLivroCancelar.setEnabled(false);   
         jToggleButton_propsLivroAlterar.setEnabled(false);
-        
+
         jToggleButton_propsLivroAlterar.setSelected(false);
     }
 
