@@ -1648,6 +1648,41 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
 
         jToggleButton_propsLivroAlterar.setSelected(false);
     }
+    
+    private void novoPedido(){
+        jDialog_pedidos.pack();
+        jDialog_pedidos.setLocationRelativeTo(null);
+
+        jDialog_pedidos.setTitle("Adicionar Pedido");
+        
+        jFormattedTextField_propPedidoId.setEnabled(true);
+        jComboBox_propPedidoUsuario.setEnabled(true);
+        jFormattedTextField_propPedidoData.setEnabled(true);
+        jFormattedTextField_propPedidoTipoPag.setEnabled(true);
+        jList_propLivroPedidos1.setEnabled(true);
+        jComboBox_propPedidoDetalheLivro.setEnabled(true);
+        jFormattedTextField_propPedidoDetalheQuantidade.setEnabled(true);
+        
+        jToggleButton_propsPedidoAlterar.setEnabled(true);
+        jButton_propPedidoOk.setEnabled(true);
+        jButton_propPedidoCancelar.setEnabled(true);
+        
+        jDialog_pedidos.setVisible(true);
+        
+        jFormattedTextField_propPedidoId.setEnabled(false);
+        jComboBox_propPedidoUsuario.setEnabled(false);
+        jFormattedTextField_propPedidoData.setEnabled(false);
+        jFormattedTextField_propPedidoTipoPag.setEnabled(false);
+        jList_propLivroPedidos1.setEnabled(false);
+        jComboBox_propPedidoDetalheLivro.setEnabled(false);
+        jFormattedTextField_propPedidoDetalheQuantidade.setEnabled(false);
+        
+        jToggleButton_propsPedidoAlterar.setEnabled(false);
+        jButton_propPedidoOk.setEnabled(false);
+        jButton_propPedidoCancelar.setEnabled(false);
+        
+        jButton_propPedidoCancelar.setSelected(false);
+    }
 
     private void visualizarUsuario(Usuarios usuario) {
         jDialog_usuarios.pack();
