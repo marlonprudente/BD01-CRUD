@@ -5,6 +5,7 @@ import entidades.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.Date;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.logging.Level;
@@ -1797,7 +1798,40 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
 
         jToggleButton_propsLivroAlterar.setSelected(false);
     }
+    private void visualizarPedido(Pedidos pedido){
+        jDialog_livros.pack();
+        jDialog_usuarios.setLocationRelativeTo(null);
 
+        jDialog_livros.setTitle("Visualizar Pedidos");
+        
+        jToggleButton_propsPedidoAlterar.setEnabled(true);
+        jButton_propPedidoOk.setEnabled(true);
+        jButton_propPedidoCancelar.setEnabled(true);
+        
+        jFormattedTextField_propPedidoId.setText(String.valueOf(pedido.getPedido_id()));
+        jComboBox_propPedidoUsuario.setSelectedItem(pedido.getUsuario());
+        jFormattedTextField_propPedidoData.setText(String.valueOf(pedido.getData_pedido()));
+        jFormattedTextField_propPedidoTipoPag.setText(String.valueOf(pedido.getTipo_pag()));
+        //jList_propLivroPedidos1
+        //jComboBox_propPedidoDetalheLivro.setText(null);
+        //jFormattedTextField_propPedidoDetalheQuantidade.setText(pedido.);
+        
+        jDialog_pedidos.setVisible(true);
+        
+        jFormattedTextField_propPedidoId.setEnabled(false);
+        jComboBox_propPedidoUsuario.setEnabled(false);
+        jFormattedTextField_propPedidoData.setEnabled(false);
+        jFormattedTextField_propPedidoTipoPag.setEnabled(false);
+        jList_propLivroPedidos1.setEnabled(false);
+        jComboBox_propPedidoDetalheLivro.setEnabled(false);
+        jFormattedTextField_propPedidoDetalheQuantidade.setEnabled(false);
+        
+        jToggleButton_propsPedidoAlterar.setEnabled(false);
+        jButton_propPedidoOk.setEnabled(false);
+        jButton_propPedidoCancelar.setEnabled(false);
+        
+        jButton_propPedidoCancelar.setSelected(false);
+    }
     private void inserirUsuario(Usuarios usuario) {
         try {
             usuario.setUsuario_id(Integer.parseInt(jFormattedTextField_propUsuarioId.getText()));
@@ -1831,7 +1865,12 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
         //Adicionar capa
         livro.setCapa(null);     
         }
-
+    private void inserirPedido(Pedidos pedido){
+        pedido.setPedido_id(Integer.parseInt(jFormattedTextField_propPedidoId.getText()));
+        pedido.setUsuario((Usuarios)jComboBox_propPedidoUsuario.getSelectedItem());
+        pedido.setData_pedido(Date.valueOf(jFormattedTextField_propPedidoData.getText()));
+        pedido.setTipo_pag(Integer.parseInt(jFormattedTextField_propPedidoTipoPag.getText()));
+    }
     private void fecharDialog(JDialog dialog) {
         //Lança um evento no WindowListener do dialog para fecha-lo
         WindowListener[] w = (WindowListener[])dialog.getListeners(WindowListener.class);
