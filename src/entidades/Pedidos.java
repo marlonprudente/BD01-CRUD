@@ -51,8 +51,8 @@ public class Pedidos implements Serializable {
     public Date getData_pedido()                        {return data_pedido;}
     public void setData_pedido(Date data_pedido)        {this.data_pedido = data_pedido;}
     
-    public Integer getTipo_pag()                            {return tipo_pag;}
-    public void setTipo_pag(Integer tipo_pag)               {this.tipo_pag = tipo_pag;}
+    public Integer getTipo_pag()                        {return tipo_pag;}
+    public void setTipo_pag(Integer tipo_pag)           {this.tipo_pag = tipo_pag;}
     
     public Usuarios getUsuario()                        {return pedido_usuario;}
     public void setUsuario(Usuarios pedido_usuario)     {this.pedido_usuario = pedido_usuario;}
@@ -62,5 +62,5 @@ public class Pedidos implements Serializable {
     public ArrayList<Livros> getLivros()                {return new ArrayList<>(pedido_livros);}
     
     @Override
-    public String toString(){return pedido_id+"-"+data_pedido+"-"+pedido_usuario.getNome()+"-"+tipo_pag;}
+    public String toString(){return "["+pedido_id+"] "+data_pedido+"-"+pedido_usuario.getNome()+"-"+tipo_pag;}
 }

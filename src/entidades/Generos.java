@@ -36,5 +36,5 @@ public class Generos implements Serializable {
     public List<Livros> getLivros()             {return new ArrayList<>(genero_livros);}
     
     @Override
-    public String toString(){return genero_id+"-"+descricao;}   
+    public String toString(){return "["+genero_id+"] "+descricao;}   
 }

@@ -98,5 +98,5 @@ public class Livros implements Serializable {
     public List<Pedidos> getPedidos()           {return new ArrayList<>(livro_pedidos);}
     
     @Override
-    public String toString(){return livro_id+"-"+titulo;}
+    public String toString(){return "["+livro_id+"] "+titulo;}
 }

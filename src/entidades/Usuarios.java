@@ -72,5 +72,5 @@ public class Usuarios implements Serializable{
     public List<Pedidos> getPedidos()               {return usuario_pedidos;}
 
     @Override
-    public String toString(){return usuario_id+"-"+nome;}
+    public String toString(){return "["+usuario_id+"] "+nome;}
 }

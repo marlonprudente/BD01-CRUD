@@ -41,5 +41,5 @@ public class PedidoDetalhes implements Serializable {
     public void setLivro(Livros pedido_detalhe_livro)               {this.pedido_detalhe_livro = pedido_detalhe_livro;}
     
     @Override
-    public String toString(){return detalhe_id+"-"+pedido_detalhe_livro.getTitulo()+"-"+qtd;}
+    public String toString(){return "["+detalhe_id+"] "+pedido_detalhe_livro.getLivro_id()+"# \""+pedido_detalhe_livro.getTitulo()+"\" x"+qtd;}
 }

@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.Date;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -181,7 +182,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jFormattedTextField_propPedidoTipoPag = new javax.swing.JFormattedTextField();
         jPanel_propPedidosDetalhes = new javax.swing.JPanel();
         jScrollPane_propPedidoDetalhes = new javax.swing.JScrollPane();
-        jList_propLivroPedidos1 = new javax.swing.JList();
+        jList_propPedidosDetalhes = new javax.swing.JList();
         jLabel_propPedidoDetalheId = new javax.swing.JLabel();
         jFormattedTextField_propPedidoDetalheId = new javax.swing.JFormattedTextField();
         jLabel_propPedidoDetalheLivro = new javax.swing.JLabel();
@@ -743,7 +744,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jDialog_pedidos.setType(java.awt.Window.Type.UTILITY);
         jDialog_pedidos.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                jDialog_pedidos_fecharDialog(evt);
+                jDialog_pedidosWindowClosing(evt);
             }
         });
 
@@ -757,7 +758,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
         jLabel_propPedidoUsuario.setText("Usuário:");
 
-        jComboBox_propPedidoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_propPedidoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
         jComboBox_propPedidoUsuario.setEnabled(false);
 
         jLabel_propPedidoData.setText("Data:");
@@ -769,6 +770,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jLabel_propPedidoTipoPag.setText("Tipo Pag.:");
 
         jFormattedTextField_propPedidoTipoPag.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        jFormattedTextField_propPedidoTipoPag.setText("0");
         jFormattedTextField_propPedidoTipoPag.setEnabled(false);
 
         javax.swing.GroupLayout jPanel_propPedidoCamposLayout = new javax.swing.GroupLayout(jPanel_propPedidoCampos);
@@ -813,8 +815,14 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
         jPanel_propPedidosDetalhes.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalhes"));
 
-        jList_propLivroPedidos1.setEnabled(false);
-        jScrollPane_propPedidoDetalhes.setViewportView(jList_propLivroPedidos1);
+        jList_propPedidosDetalhes.setModel(new ListModelDetalhes());
+        jList_propPedidosDetalhes.setEnabled(false);
+        jList_propPedidosDetalhes.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList_propPedidosDetalhesValueChanged(evt);
+            }
+        });
+        jScrollPane_propPedidoDetalhes.setViewportView(jList_propPedidosDetalhes);
 
         jLabel_propPedidoDetalheId.setText("ID:");
 
@@ -824,22 +832,37 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
         jLabel_propPedidoDetalheLivro.setText("Livro:");
 
-        jComboBox_propPedidoDetalheLivro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox_propPedidoDetalheLivro.setEnabled(false);
 
         jLabel_propPedidoDetalheQuantidade.setText("Quantidade:");
 
-        jFormattedTextField_propPedidoDetalheQuantidade.setText("jFormattedTextField1");
+        jFormattedTextField_propPedidoDetalheQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jFormattedTextField_propPedidoDetalheQuantidade.setText("0");
         jFormattedTextField_propPedidoDetalheQuantidade.setEnabled(false);
 
         jButton_propPedidoDetalheAdicionar.setText("Adicionar");
         jButton_propPedidoDetalheAdicionar.setEnabled(false);
+        jButton_propPedidoDetalheAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_propPedidoDetalheAdicionarActionPerformed(evt);
+            }
+        });
 
         jButton_propPedidoDetalheExcluir.setText("Excluir");
         jButton_propPedidoDetalheExcluir.setEnabled(false);
+        jButton_propPedidoDetalheExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_propPedidoDetalheExcluirActionPerformed(evt);
+            }
+        });
 
         jButton_propPedidoDetalheAlterar.setText("Alterar");
         jButton_propPedidoDetalheAlterar.setEnabled(false);
+        jButton_propPedidoDetalheAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_propPedidoDetalheAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_propPedidosDetalhesLayout = new javax.swing.GroupLayout(jPanel_propPedidosDetalhes);
         jPanel_propPedidosDetalhes.setLayout(jPanel_propPedidosDetalhesLayout);
@@ -851,8 +874,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_propPedidoDetalheAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_propPedidoDetalheExcluir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButton_propPedidoDetalheExcluir))
             .addGroup(jPanel_propPedidosDetalhesLayout.createSequentialGroup()
                 .addGroup(jPanel_propPedidosDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_propPedidosDetalhesLayout.createSequentialGroup()
@@ -901,7 +923,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
             jPanel_propPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_propPedidoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_propPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel_propPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel_propPedidosDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel_propPedidoCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -926,6 +948,11 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
         jButton_propPedidoCancelar.setText("Cancelar");
         jButton_propPedidoCancelar.setEnabled(false);
+        jButton_propPedidoCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_propPedidoCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jDialog_pedidosLayout = new javax.swing.GroupLayout(jDialog_pedidos.getContentPane());
         jDialog_pedidos.getContentPane().setLayout(jDialog_pedidosLayout);
@@ -933,16 +960,16 @@ public class JanelaCRUD extends javax.swing.JFrame {
             jDialog_pedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialog_pedidosLayout.createSequentialGroup()
                 .addComponent(jToggleButton_propsPedidoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
                 .addComponent(jButton_propPedidoOk)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_propPedidoCancelar))
-            .addComponent(jScrollPane_propPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+            .addComponent(jScrollPane_propPedido)
         );
         jDialog_pedidosLayout.setVerticalGroup(
             jDialog_pedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialog_pedidosLayout.createSequentialGroup()
-                .addComponent(jScrollPane_propPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane_propPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jDialog_pedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton_propsPedidoAlterar)
@@ -1074,6 +1101,12 @@ public class JanelaCRUD extends javax.swing.JFrame {
                 jList_lista.setModel(listaLivros);
                 break;
             case 2:
+                opDialog_pedido = OP_ADICIONAR;
+                //Exibe janela para criação novo usuario
+                novoPedido();
+                //Atualiza nova lista
+                jList_lista.setModel(listaNula);
+                jList_lista.setModel(listaPedidos);
                 break;
             default:
                 System.out.println("ERROR: ComboBox out of range");
@@ -1363,8 +1396,8 @@ public class JanelaCRUD extends javax.swing.JFrame {
             }
             else
             {
-                opDialog_usuario = OP_NENHUM;
-                fecharDialog(jDialog_usuarios);
+                opDialog_livro = OP_NENHUM;
+                fecharDialog(jDialog_livros);
             }
         } catch (Exception ex) {
             Logger.getLogger(JanelaCRUD.class.getName()).log(Level.SEVERE, null, ex);
@@ -1444,17 +1477,6 @@ public class JanelaCRUD extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton_propPedidoAlterar_visualizarOuEditar
 
-    private void jDialog_pedidos_fecharDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialog_pedidos_fecharDialog
-if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
-        {
-            int opcao = JOptionPane.showOptionDialog(jDialog_usuarios, "Deseja realmente remover alterações efetuadas?",
-                "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-            if(opcao == 1)                    
-                return;
-        }
-        opDialog_usuario = OP_NENHUM;
-        evt.getWindow().dispose();    }//GEN-LAST:event_jDialog_pedidos_fecharDialog
-
     private void jButton_propLivroGeneroEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propLivroGeneroEditarActionPerformed
         Generos genero = (Generos) jComboBox_propLivroGenero.getSelectedItem();
         String descricao = genero.getDescricao();
@@ -1469,6 +1491,89 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
         jComboBox_propLivroGenero.setSelectedItem(genero);
         JOptionPane.showMessageDialog(jDialog_livros, "Gênero alterado com sucesso.");
     }//GEN-LAST:event_jButton_propLivroGeneroEditarActionPerformed
+
+    private void jDialog_pedidosWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialog_pedidosWindowClosing
+        if(opDialog_pedido == OP_ADICIONAR || opDialog_pedido == OP_ALTERAR)
+        {
+            int opcao = JOptionPane.showOptionDialog(jDialog_pedidos, "Deseja realmente remover alterações efetuadas?",
+                "Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            if(opcao == 1)                    
+                return;
+        }
+        opDialog_pedido = OP_NENHUM;
+        evt.getWindow().dispose();
+    }//GEN-LAST:event_jDialog_pedidosWindowClosing
+
+    private void jButton_propPedidoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propPedidoCancelarActionPerformed
+        fecharDialog(jDialog_pedidos);
+    }//GEN-LAST:event_jButton_propPedidoCancelarActionPerformed
+
+    private void jButton_propPedidoDetalheAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propPedidoDetalheAdicionarActionPerformed
+        try {
+            ListModelDetalhes modeloLista = (ListModelDetalhes) jList_propPedidosDetalhes.getModel();
+            int id = Integer.parseInt(jFormattedTextField_propPedidoDetalheId.getText());
+            if(modeloLista.isIdUtilizado(id)|| gerTrans.isIdUtilizado(PedidoDetalhes.class, id))
+            {
+                JOptionPane.showMessageDialog(jDialog_pedidos, "ID não deve já ter sido utilizado.");
+                return;
+            }
+            if(id == 0)
+            {
+                JOptionPane.showMessageDialog(jDialog_pedidos, "ID não deve ser zero.");
+                return;
+            }
+            
+            PedidoDetalhes detalhe = new PedidoDetalhes();
+            detalhe.setDetalhe_id(id);
+            detalhe.setLivro((Livros)jComboBox_propPedidoDetalheLivro.getSelectedItem());
+            detalhe.setQtd(Integer.parseInt(jFormattedTextField_propPedidoDetalheQuantidade.getText()));
+            modeloLista.getLista().add(detalhe);
+            //refresh
+            jList_propPedidosDetalhes.setModel(listaNula);
+            jList_propPedidosDetalhes.setModel(modeloLista);
+        } catch (Exception ex) {
+            Logger.getLogger(JanelaCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_propPedidoDetalheAdicionarActionPerformed
+
+    private void jButton_propPedidoDetalheAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propPedidoDetalheAlterarActionPerformed
+        ListModelDetalhes modeloLista = (ListModelDetalhes) jList_propPedidosDetalhes.getModel();
+        PedidoDetalhes detalhe = (PedidoDetalhes) jList_propPedidosDetalhes.getSelectedValue();
+        Livros livro = (Livros) JOptionPane.showInputDialog(jDialog_pedidos, "Selecione o livro desejado:", "Alterar Livro", JOptionPane.QUESTION_MESSAGE, null, gerTrans.getListaLivros().toArray(), detalhe.getLivro());
+        if(livro == null)
+            return;
+        int qtd = Integer.parseInt(JOptionPane.showInputDialog(jDialog_pedidos, "Insira a quantidade de livros pedidos:", detalhe.getQtd()));
+        detalhe.setLivro(livro);
+        detalhe.setQtd(qtd);
+        //refresh
+        jList_propPedidosDetalhes.setModel(listaNula);
+        jList_propPedidosDetalhes.setModel(modeloLista);
+
+    }//GEN-LAST:event_jButton_propPedidoDetalheAlterarActionPerformed
+
+    private void jButton_propPedidoDetalheExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propPedidoDetalheExcluirActionPerformed
+        ListModelDetalhes modeloLista = (ListModelDetalhes) jList_propPedidosDetalhes.getModel();
+        PedidoDetalhes detalhe = (PedidoDetalhes) jList_propPedidosDetalhes.getSelectedValue();
+        if(JOptionPane.showConfirmDialog(jDialog_pedidos, "Deseja realmente excluir este elemento?", "Remover Detalhe", JOptionPane.YES_NO_OPTION) == 1)
+            return;
+        modeloLista.getLista().remove(detalhe);
+        //refresh
+        jList_propPedidosDetalhes.setModel(listaNula);
+        jList_propPedidosDetalhes.setModel(modeloLista);
+    }//GEN-LAST:event_jButton_propPedidoDetalheExcluirActionPerformed
+
+    private void jList_propPedidosDetalhesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList_propPedidosDetalhesValueChanged
+        if(jList_propPedidosDetalhes.isSelectionEmpty())
+        {
+            jButton_propPedidoDetalheAlterar.setEnabled(false);
+            jButton_propPedidoDetalheExcluir.setEnabled(false);
+        }
+        else
+        {
+            jButton_propPedidoDetalheAlterar.setEnabled(true);
+            jButton_propPedidoDetalheExcluir.setEnabled(true);
+        }
+    }//GEN-LAST:event_jList_propPedidosDetalhesValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_adicionar;
@@ -1535,7 +1640,7 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
     private javax.swing.JLabel jLabel_propUsuarioUf;
     private javax.swing.JList jList_lista;
     private javax.swing.JList jList_propLivroPedidos;
-    private javax.swing.JList jList_propLivroPedidos1;
+    private javax.swing.JList jList_propPedidosDetalhes;
     private javax.swing.JList jList_propUsuariosPedidos;
     private javax.swing.JMenuBar jMenuBar_menu;
     private javax.swing.JMenu jMenu_arquivo;
@@ -1668,30 +1773,37 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
         jDialog_pedidos.setLocationRelativeTo(null);
 
         jDialog_pedidos.setTitle("Adicionar Pedido");
-        
+
+        jFormattedTextField_propPedidoDetalheId.setEnabled(true);
         jFormattedTextField_propPedidoId.setEnabled(true);
         jComboBox_propPedidoUsuario.setEnabled(true);
         jFormattedTextField_propPedidoData.setEnabled(true);
         jFormattedTextField_propPedidoTipoPag.setEnabled(true);
-        jList_propLivroPedidos1.setEnabled(true);
+        jList_propPedidosDetalhes.setEnabled(true);
         jComboBox_propPedidoDetalheLivro.setEnabled(true);
         jFormattedTextField_propPedidoDetalheQuantidade.setEnabled(true);
         
-        jToggleButton_propsPedidoAlterar.setEnabled(true);
+        jButton_propPedidoDetalheAdicionar.setEnabled(true);
+        
         jButton_propPedidoOk.setEnabled(true);
         jButton_propPedidoCancelar.setEnabled(true);
         
+        jComboBox_propPedidoDetalheLivro.setModel(new DefaultComboBoxModel(gerTrans.getListaLivros().toArray()));
+        jComboBox_propPedidoUsuario.setModel(new DefaultComboBoxModel(gerTrans.getListaUsuarios().toArray()));
+        
         jDialog_pedidos.setVisible(true);
         
+        jFormattedTextField_propPedidoDetalheId.setEnabled(false);
         jFormattedTextField_propPedidoId.setEnabled(false);
         jComboBox_propPedidoUsuario.setEnabled(false);
         jFormattedTextField_propPedidoData.setEnabled(false);
         jFormattedTextField_propPedidoTipoPag.setEnabled(false);
-        jList_propLivroPedidos1.setEnabled(false);
+        jList_propPedidosDetalhes.setEnabled(false);
         jComboBox_propPedidoDetalheLivro.setEnabled(false);
         jFormattedTextField_propPedidoDetalheQuantidade.setEnabled(false);
         
-        jToggleButton_propsPedidoAlterar.setEnabled(false);
+        jButton_propPedidoDetalheAdicionar.setEnabled(false);
+        
         jButton_propPedidoOk.setEnabled(false);
         jButton_propPedidoCancelar.setEnabled(false);
         
@@ -1725,7 +1837,7 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
             @Override
             public Object getElementAt(int index) {return usuario.getPedidos();}
         });
-        
+
         jDialog_usuarios.setVisible(true);
 
         jFormattedTextField_propUsuarioId.setEnabled(false);
@@ -1798,6 +1910,7 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
 
         jToggleButton_propsLivroAlterar.setSelected(false);
     }
+    
     private void visualizarPedido(Pedidos pedido){
         jDialog_livros.pack();
         jDialog_usuarios.setLocationRelativeTo(null);
@@ -1808,13 +1921,23 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
         jButton_propPedidoOk.setEnabled(true);
         jButton_propPedidoCancelar.setEnabled(true);
         
+        jList_propUsuariosPedidos.setModel(new AbstractListModel() {
+            @Override
+            public int getSize() {return pedido.getDetalhes().size();}
+            @Override
+            public Object getElementAt(int index) {return pedido.getDetalhes();}
+        });
+        
+        jComboBox_propPedidoUsuario.setModel(new DefaultComboBoxModel(gerTrans.getListaUsuarios().toArray()));
+        jComboBox_propPedidoDetalheLivro.setModel(new DefaultComboBoxModel(gerTrans.getListaLivros().toArray()));
+
         jFormattedTextField_propPedidoId.setText(String.valueOf(pedido.getPedido_id()));
         jComboBox_propPedidoUsuario.setSelectedItem(pedido.getUsuario());
         jFormattedTextField_propPedidoData.setText(String.valueOf(pedido.getData_pedido()));
         jFormattedTextField_propPedidoTipoPag.setText(String.valueOf(pedido.getTipo_pag()));
-        //jList_propLivroPedidos1
-        //jComboBox_propPedidoDetalheLivro.setText(null);
-        //jFormattedTextField_propPedidoDetalheQuantidade.setText(pedido.);
+        
+//        jFormattedTextField_propPedidoDetalheQuantidade.setText(pedido.);
+//        jComboBox_propPedidoDetalheLivro.setSelectedItem(pedido.get)
         
         jDialog_pedidos.setVisible(true);
         
@@ -1822,7 +1945,7 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
         jComboBox_propPedidoUsuario.setEnabled(false);
         jFormattedTextField_propPedidoData.setEnabled(false);
         jFormattedTextField_propPedidoTipoPag.setEnabled(false);
-        jList_propLivroPedidos1.setEnabled(false);
+        jList_propPedidosDetalhes.setEnabled(false);
         jComboBox_propPedidoDetalheLivro.setEnabled(false);
         jFormattedTextField_propPedidoDetalheQuantidade.setEnabled(false);
         
@@ -1832,6 +1955,7 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
         
         jButton_propPedidoCancelar.setSelected(false);
     }
+    
     private void inserirUsuario(Usuarios usuario) {
         try {
             usuario.setUsuario_id(Integer.parseInt(jFormattedTextField_propUsuarioId.getText()));
@@ -1864,17 +1988,52 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
         //TODO
         //Adicionar capa
         livro.setCapa(null);     
-        }
+    }
+    
     private void inserirPedido(Pedidos pedido){
         pedido.setPedido_id(Integer.parseInt(jFormattedTextField_propPedidoId.getText()));
         pedido.setUsuario((Usuarios)jComboBox_propPedidoUsuario.getSelectedItem());
         pedido.setData_pedido(Date.valueOf(jFormattedTextField_propPedidoData.getText()));
         pedido.setTipo_pag(Integer.parseInt(jFormattedTextField_propPedidoTipoPag.getText()));
     }
+    
     private void fecharDialog(JDialog dialog) {
         //Lança um evento no WindowListener do dialog para fecha-lo
         WindowListener[] w = (WindowListener[])dialog.getListeners(WindowListener.class);
         if(w[0] != null)
             w[0].windowClosing(new WindowEvent(dialog,WindowEvent.WINDOW_CLOSING));
+    }
+    
+    class ListModelDetalhes extends AbstractListModel<PedidoDetalhes>{
+        private List<PedidoDetalhes> lista;
+        
+        
+        public ListModelDetalhes() {
+            super();
+            lista = new ArrayList<>();
+        }   
+        
+        @Override
+        public int getSize() {return lista.size();}
+        
+        @Override
+        public PedidoDetalhes getElementAt(int index) {
+            return lista.get(index);
+        }
+        
+        public List<PedidoDetalhes> getLista(){
+            return lista;
+        }
+        
+        public void setLista(List<PedidoDetalhes> lista){
+            this.lista = lista;
+        }
+        
+        public boolean isIdUtilizado(int id){
+            for(PedidoDetalhes x:lista)
+                if(x.getDetalhe_id() == id)
+                    return true;
+            return false;
+        }
     }
 }
