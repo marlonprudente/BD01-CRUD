@@ -764,7 +764,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jLabel_propPedidoData.setText("Data:");
 
         jFormattedTextField_propPedidoData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        jFormattedTextField_propPedidoData.setText("00/00/0000");
+        jFormattedTextField_propPedidoData.setText("01012000");
         jFormattedTextField_propPedidoData.setEnabled(false);
 
         jLabel_propPedidoTipoPag.setText("Tipo Pag.:");
@@ -2112,13 +2112,12 @@ public class JanelaCRUD extends javax.swing.JFrame {
         String mes = data_s.substring(3,5);
         String ano = data_s.substring(6);
         Date data = new Date(Integer.parseInt(ano),Integer.parseInt(mes),Integer.parseInt(dia));
-        System.out.println(dia);
-        System.out.println(mes);
-        System.out.println(ano);
-        System.out.println(data);
         pedido.setData_pedido(data);
         pedido.setTipo_pag(Integer.parseInt(jFormattedTextField_propPedidoTipoPag.getText()));
-        pedido.setDetalhes(((ListModelDetalhes)jList_propPedidosDetalhes.getModel()).getLista());
+        List<PedidoDetalhes> detalhes = ((ListModelDetalhes)jList_propPedidosDetalhes.getModel()).getLista();
+        pedido.setDetalhes(detalhes);
+        for(PedidoDetalhes x: detalhes)
+            x.setPedido(pedido);
     }
     
     private void fecharDialog(JDialog dialog) {
