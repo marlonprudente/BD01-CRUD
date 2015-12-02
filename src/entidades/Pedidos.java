@@ -30,7 +30,7 @@ public class Pedidos implements Serializable {
     @JoinColumn(name = "USUARIO_ID")
     Usuarios pedido_usuario;
     
-    @OneToMany(mappedBy = "pedido_detalhe_pedido", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "pedido_detalhe_pedido", cascade = CascadeType.PERSIST)
     List<PedidoDetalhes> pedido_pedido_detalhes;
     
     @ManyToMany
@@ -41,7 +41,7 @@ public class Pedidos implements Serializable {
     
     public Pedidos(){
         pedido_id = 0;
-        data_pedido = new Date();
+        data_pedido = new Date(0L);
         tipo_pag = 0;
     }
     
@@ -58,9 +58,10 @@ public class Pedidos implements Serializable {
     public void setUsuario(Usuarios pedido_usuario)     {this.pedido_usuario = pedido_usuario;}
     
     public List<PedidoDetalhes> getDetalhes()           {return new ArrayList<>(pedido_pedido_detalhes);}
+    public void setDetalhes(List<PedidoDetalhes> detalhes){this.pedido_pedido_detalhes = detalhes;}
     
     public ArrayList<Livros> getLivros()                {return new ArrayList<>(pedido_livros);}
     
     @Override
-    public String toString(){return "["+pedido_id+"] "+data_pedido+"-"+pedido_usuario.getNome()+"-"+tipo_pag;}
+    public String toString(){return "["+pedido_id+"] "+String.format("%02d/%02d/%04d", data_pedido.getDay(), data_pedido.getMonth(), data_pedido.getYear())+"-"+pedido_usuario.getNome()+"-"+tipo_pag;}
 }

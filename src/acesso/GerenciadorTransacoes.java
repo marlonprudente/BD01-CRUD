@@ -63,6 +63,14 @@ public class GerenciadorTransacoes {
         et.commit();
     }
     
+    public void persistirPedido(Pedidos pedido) {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.persist(pedido);
+        et.commit();
+
+    }    
+    
     public void removerUsuario(Usuarios usuario) {
         EntityTransaction et = em.getTransaction();
         et.begin();
@@ -91,5 +99,6 @@ public class GerenciadorTransacoes {
     public void atualizar(){
         em.getTransaction().commit();
     }
+
 
 }

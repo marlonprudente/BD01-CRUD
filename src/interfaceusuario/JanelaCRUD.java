@@ -5,7 +5,7 @@ import entidades.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.Date;
+import java.util.Date;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -942,9 +942,19 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
         jToggleButton_propsPedidoAlterar.setText("Alterar");
         jToggleButton_propsPedidoAlterar.setEnabled(false);
+        jToggleButton_propsPedidoAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton_propsPedidoAlterarActionPerformed(evt);
+            }
+        });
 
         jButton_propPedidoOk.setText("Ok");
         jButton_propPedidoOk.setEnabled(false);
+        jButton_propPedidoOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_propPedidoOkActionPerformed(evt);
+            }
+        });
 
         jButton_propPedidoCancelar.setText("Cancelar");
         jButton_propPedidoCancelar.setEnabled(false);
@@ -1249,6 +1259,13 @@ public class JanelaCRUD extends javax.swing.JFrame {
                 jList_lista.setModel(listaLivros);
                 break;
             case 2:
+                //Operação: Visualizar
+                opDialog_pedido = OP_VISUALIZAR;
+                //Exibe janela para criação novo usuario
+                visualizarPedido((Pedidos) jList_lista.getSelectedValue());
+                //Atualiza nova lista
+                jList_lista.setModel(listaNula);
+                jList_lista.setModel(listaPedidos);
                 break;
             default:
                 System.out.println("ERROR: ComboBox out of range");
@@ -1574,6 +1591,112 @@ public class JanelaCRUD extends javax.swing.JFrame {
             jButton_propPedidoDetalheExcluir.setEnabled(true);
         }
     }//GEN-LAST:event_jList_propPedidosDetalhesValueChanged
+
+    private void jButton_propPedidoOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propPedidoOkActionPerformed
+        try {
+            if(opDialog_pedido == OP_ADICIONAR || opDialog_pedido == OP_ALTERAR)
+            {
+                //ID deve estar preenchido
+                    if(jFormattedTextField_propPedidoId.getText() == null)
+                JOptionPane.showMessageDialog(jDialog_pedidos, "O valor de ID não poder ser nulo.", "Atenção", JOptionPane.INFORMATION_MESSAGE);            
+                //ID não pode ser zero (por alguma razão o JPA não aceita
+                else if(Integer.parseInt(jFormattedTextField_propPedidoId.getText()) == 0)
+                    JOptionPane.showMessageDialog(jDialog_pedidos, "O valor de ID não poder ser zero.", "Atenção",  JOptionPane.INFORMATION_MESSAGE);
+                //Se adicionado novo usuário, não deve utiliar ID's repetidos
+                else if(gerTrans.isIdUtilizado(Pedidos.class, Integer.parseInt(jFormattedTextField_propPedidoId.getText()))&& opDialog_pedido == OP_ADICIONAR)
+                    JOptionPane.showMessageDialog(jDialog_pedidos, "O valor de ID deve ser único.", "Atenção",  JOptionPane.INFORMATION_MESSAGE);
+                else 
+                {
+                    //Mensagens e titulo das mensagens dos avisos: dependem da opção utilizada (Adicionar ou Alteerar)
+                    String titulo;
+                    String mensagem;
+                    if(opDialog_pedido == OP_ADICIONAR)
+                    {
+                        titulo = "Adicionar pedido";
+                        mensagem = "Deseja adicionar um pedido com estas propriedades?";
+                    }
+                    else
+                    {
+                        titulo = "Alterar pedido";
+                        mensagem = "Deseja realmente alterar as propriedades deste pedido?";
+                    }
+                    //Balão de mensagem de confirmação: 0-Confirma Opção; 1-Recusa Opção
+                    int opcao = JOptionPane.showOptionDialog(jDialog_pedidos, mensagem,
+                        titulo, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    if(opcao == 0)                    
+                    {
+                        Pedidos pedido = new Pedidos();
+                        if(opDialog_livro == OP_ALTERAR)
+                            pedido = (Pedidos) jList_lista.getSelectedValue();
+                        inserirPedido(pedido);                        
+                        gerTrans.persistirPedido(pedido);    
+                        
+                        opDialog_pedido = OP_NENHUM;
+                        fecharDialog(jDialog_pedidos);
+                    }
+                }
+            }
+            else
+            {
+                opDialog_pedido = OP_NENHUM;
+                fecharDialog(jDialog_pedidos);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JanelaCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_propPedidoOkActionPerformed
+
+    private void jToggleButton_propsPedidoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton_propsPedidoAlterarActionPerformed
+        if(jToggleButton_propsPedidoAlterar.isSelected())
+        {
+            opDialog_pedido = OP_ALTERAR;
+            
+            jFormattedTextField_propPedidoDetalheId.setEnabled(true);
+            jComboBox_propPedidoUsuario.setEnabled(true);
+            jFormattedTextField_propPedidoData.setEnabled(true);
+            jFormattedTextField_propPedidoTipoPag.setEnabled(true);
+            jList_propPedidosDetalhes.setEnabled(true);
+            jComboBox_propPedidoDetalheLivro.setEnabled(true);
+            jFormattedTextField_propPedidoDetalheQuantidade.setEnabled(true);
+            
+            jButton_propPedidoDetalheAdicionar.setEnabled(true);
+            jButton_propPedidoDetalheAlterar.setEnabled(true);
+            jButton_propPedidoDetalheExcluir.setEnabled(true);
+            
+            jButton_propPedidoOk.setEnabled(true);
+            jButton_propPedidoCancelar.setEnabled(true);
+
+        }else{
+            opDialog_pedido = OP_VISUALIZAR;
+            
+            jFormattedTextField_propPedidoId.setEnabled(false);
+            jFormattedTextField_propPedidoDetalheId.setEnabled(false);
+            jComboBox_propPedidoUsuario.setEnabled(false);
+            jFormattedTextField_propPedidoData.setEnabled(false);
+            jFormattedTextField_propPedidoTipoPag.setEnabled(false);
+            jList_propPedidosDetalhes.setEnabled(false);
+            jComboBox_propPedidoDetalheLivro.setEnabled(false);
+            jFormattedTextField_propPedidoDetalheQuantidade.setEnabled(false);
+            
+            jButton_propPedidoDetalheAdicionar.setEnabled(false);
+            jButton_propPedidoDetalheAlterar.setEnabled(false);
+            jButton_propPedidoDetalheExcluir.setEnabled(false);
+            
+            jButton_propPedidoOk.setEnabled(false);
+            jButton_propPedidoCancelar.setEnabled(false);
+
+            Pedidos pedido = (Pedidos) jList_lista.getSelectedValue();
+            
+            jFormattedTextField_propPedidoId.setText(String.valueOf(pedido.getPedido_id()));
+            jComboBox_propPedidoUsuario.setSelectedItem(pedido.getUsuario());
+            Date data = pedido.getData_pedido();
+            jFormattedTextField_propPedidoData.setText(String.format("%02d/%02d/%04d",data.getDay(),data.getMonth(),data.getYear()));
+            jFormattedTextField_propPedidoTipoPag.setText(String.valueOf(pedido.getTipo_pag()));
+            
+            ((ListModelDetalhes)jList_propPedidosDetalhes.getModel()).setLista(pedido.getDetalhes());
+
+        }
+    }//GEN-LAST:event_jToggleButton_propsPedidoAlterarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_adicionar;
@@ -1912,32 +2035,23 @@ public class JanelaCRUD extends javax.swing.JFrame {
     }
     
     private void visualizarPedido(Pedidos pedido){
-        jDialog_livros.pack();
-        jDialog_usuarios.setLocationRelativeTo(null);
+        jDialog_pedidos.pack();
+        jDialog_pedidos.setLocationRelativeTo(null);
 
-        jDialog_livros.setTitle("Visualizar Pedidos");
+        jDialog_pedidos.setTitle("Visualizar Pedidos");
         
         jToggleButton_propsPedidoAlterar.setEnabled(true);
         jButton_propPedidoOk.setEnabled(true);
         jButton_propPedidoCancelar.setEnabled(true);
-        
-        jList_propUsuariosPedidos.setModel(new AbstractListModel() {
-            @Override
-            public int getSize() {return pedido.getDetalhes().size();}
-            @Override
-            public Object getElementAt(int index) {return pedido.getDetalhes();}
-        });
         
         jComboBox_propPedidoUsuario.setModel(new DefaultComboBoxModel(gerTrans.getListaUsuarios().toArray()));
         jComboBox_propPedidoDetalheLivro.setModel(new DefaultComboBoxModel(gerTrans.getListaLivros().toArray()));
 
         jFormattedTextField_propPedidoId.setText(String.valueOf(pedido.getPedido_id()));
         jComboBox_propPedidoUsuario.setSelectedItem(pedido.getUsuario());
-        jFormattedTextField_propPedidoData.setText(String.valueOf(pedido.getData_pedido()));
+        Date data = pedido.getData_pedido();
+        jFormattedTextField_propPedidoData.setText(String.format("%02d/%02d/%04d",data.getDay(),data.getMonth(),data.getYear()));
         jFormattedTextField_propPedidoTipoPag.setText(String.valueOf(pedido.getTipo_pag()));
-        
-//        jFormattedTextField_propPedidoDetalheQuantidade.setText(pedido.);
-//        jComboBox_propPedidoDetalheLivro.setSelectedItem(pedido.get)
         
         jDialog_pedidos.setVisible(true);
         
@@ -1993,8 +2107,18 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private void inserirPedido(Pedidos pedido){
         pedido.setPedido_id(Integer.parseInt(jFormattedTextField_propPedidoId.getText()));
         pedido.setUsuario((Usuarios)jComboBox_propPedidoUsuario.getSelectedItem());
-        pedido.setData_pedido(Date.valueOf(jFormattedTextField_propPedidoData.getText()));
+        String data_s = jFormattedTextField_propPedidoData.getText();
+        String dia = data_s.substring(0,2);
+        String mes = data_s.substring(3,5);
+        String ano = data_s.substring(6);
+        Date data = new Date(Integer.parseInt(ano),Integer.parseInt(mes),Integer.parseInt(dia));
+        System.out.println(dia);
+        System.out.println(mes);
+        System.out.println(ano);
+        System.out.println(data);
+        pedido.setData_pedido(data);
         pedido.setTipo_pag(Integer.parseInt(jFormattedTextField_propPedidoTipoPag.getText()));
+        pedido.setDetalhes(((ListModelDetalhes)jList_propPedidosDetalhes.getModel()).getLista());
     }
     
     private void fecharDialog(JDialog dialog) {
