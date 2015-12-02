@@ -505,11 +505,6 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jLabel_propLivroGenero.setText("Gênero:");
 
         jComboBox_propLivroGenero.setEnabled(false);
-        jComboBox_propLivroGenero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_propLivroGeneroActionPerformed(evt);
-            }
-        });
 
         jButton_propLivroGeneroNovo.setText("Novo");
         jButton_propLivroGeneroNovo.setEnabled(false);
@@ -521,6 +516,11 @@ public class JanelaCRUD extends javax.swing.JFrame {
 
         jButton_propLivroGeneroEditar.setText("Editar");
         jButton_propLivroGeneroEditar.setEnabled(false);
+        jButton_propLivroGeneroEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_propLivroGeneroEditarActionPerformed(evt);
+            }
+        });
 
         jButton_propLivroGeneroExcluir.setText("Excluir");
         jButton_propLivroGeneroExcluir.setEnabled(false);
@@ -1421,10 +1421,12 @@ public class JanelaCRUD extends javax.swing.JFrame {
         
         jComboBox_propLivroGenero.setModel(new DefaultComboBoxModel(gerTrans.getListaGeneros().toArray()));
         jComboBox_propLivroGenero.setSelectedItem(genero);
-        JOptionPane.showMessageDialog(jDialog_livros, "Genero inserido com sucesso.");
+        JOptionPane.showMessageDialog(jDialog_livros, "Gênero inserido com sucesso.");
     }//GEN-LAST:event_jButton_propLivroGeneroNovoActionPerformed
 
     private void jButton_propLivroGeneroExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propLivroGeneroExcluirActionPerformed
+        if(JOptionPane.showConfirmDialog(jDialog_livros, "Deseja realmente remover este elemento?", "Remover Gênero", JOptionPane.YES_NO_OPTION)== 1)
+            return;
         int index = jComboBox_propLivroGenero.getSelectedIndex();
         Generos genero = (Generos) jComboBox_propLivroGenero.getSelectedItem();
         gerTrans.removeGenero(genero);
@@ -1452,9 +1454,20 @@ if(opDialog_usuario == OP_ADICIONAR || opDialog_usuario == OP_ALTERAR)
         opDialog_usuario = OP_NENHUM;
         evt.getWindow().dispose();    }//GEN-LAST:event_jDialog_pedidos_fecharDialog
 
-    private void jComboBox_propLivroGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_propLivroGeneroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_propLivroGeneroActionPerformed
+    private void jButton_propLivroGeneroEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_propLivroGeneroEditarActionPerformed
+        Generos genero = (Generos) jComboBox_propLivroGenero.getSelectedItem();
+        String descricao = genero.getDescricao();
+        descricao = JOptionPane.showInputDialog("Insira a descrição do genero desejado:", descricao);
+        if(descricao == null)
+            return;
+                
+        genero.setDescricao(descricao);
+        gerTrans.persistirGenero(genero);
+        
+        jComboBox_propLivroGenero.setModel(new DefaultComboBoxModel(gerTrans.getListaGeneros().toArray()));
+        jComboBox_propLivroGenero.setSelectedItem(genero);
+        JOptionPane.showMessageDialog(jDialog_livros, "Gênero alterado com sucesso.");
+    }//GEN-LAST:event_jButton_propLivroGeneroEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_adicionar;
