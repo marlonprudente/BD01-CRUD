@@ -201,9 +201,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jButton_visualizar = new javax.swing.JButton();
         jButton_excluir = new javax.swing.JButton();
         jComboBox_tabelas = new javax.swing.JComboBox();
-        jMenuBar_menu = new javax.swing.JMenuBar();
-        jMenu_arquivo = new javax.swing.JMenu();
-        jMenu_editar = new javax.swing.JMenu();
+        jButton1 = new javax.swing.JButton();
 
         jDialog_usuarios.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         jDialog_usuarios.setModal(true);
@@ -764,7 +762,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jLabel_propPedidoData.setText("Data:");
 
         jFormattedTextField_propPedidoData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        jFormattedTextField_propPedidoData.setText("01012000");
+        jFormattedTextField_propPedidoData.setText("01/01/2000");
         jFormattedTextField_propPedidoData.setEnabled(false);
 
         jLabel_propPedidoTipoPag.setText("Tipo Pag.:");
@@ -1027,13 +1025,12 @@ public class JanelaCRUD extends javax.swing.JFrame {
             }
         });
 
-        jMenu_arquivo.setText("Arquivo");
-        jMenuBar_menu.add(jMenu_arquivo);
-
-        jMenu_editar.setText("Editar");
-        jMenuBar_menu.add(jMenu_editar);
-
-        setJMenuBar(jMenuBar_menu);
+        jButton1.setText("Atualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1042,9 +1039,11 @@ public class JanelaCRUD extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane_lista)
+                    .addComponent(jScrollPane_lista, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox_tabelas, 0, 131, Short.MAX_VALUE)
+                        .addComponent(jComboBox_tabelas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_adicionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1064,9 +1063,10 @@ public class JanelaCRUD extends javax.swing.JFrame {
                     .addComponent(jButton_adicionar)
                     .addComponent(jButton_visualizar)
                     .addComponent(jButton_excluir)
-                    .addComponent(jComboBox_tabelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox_tabelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_lista, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addComponent(jScrollPane_lista, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1626,7 +1626,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
                     if(opcao == 0)                    
                     {
                         Pedidos pedido = new Pedidos();
-                        if(opDialog_livro == OP_ALTERAR)
+                        if(opDialog_pedido == OP_ALTERAR)
                             pedido = (Pedidos) jList_lista.getSelectedValue();
                         inserirPedido(pedido);                        
                         gerTrans.persistirPedido(pedido);    
@@ -1698,7 +1698,28 @@ public class JanelaCRUD extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jToggleButton_propsPedidoAlterarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        switch(jComboBox_tabelas.getSelectedIndex()){
+            case 0:
+                jList_lista.setModel(listaNula);
+                jList_lista.setModel(listaUsuarios);
+                break;
+            case 1:
+                jList_lista.setModel(listaNula);
+                jList_lista.setModel(listaLivros);
+                break;
+            case 2:
+                jList_lista.setModel(listaNula);
+                jList_lista.setModel(listaPedidos);
+                break;
+            default:
+                System.out.println("ERROR: ComboBox out of range");
+            break;
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_adicionar;
     private javax.swing.JButton jButton_excluir;
     private javax.swing.JButton jButton_propLivroCancelar;
@@ -1765,9 +1786,6 @@ public class JanelaCRUD extends javax.swing.JFrame {
     private javax.swing.JList jList_propLivroPedidos;
     private javax.swing.JList jList_propPedidosDetalhes;
     private javax.swing.JList jList_propUsuariosPedidos;
-    private javax.swing.JMenuBar jMenuBar_menu;
-    private javax.swing.JMenu jMenu_arquivo;
-    private javax.swing.JMenu jMenu_editar;
     private javax.swing.JPanel jPanel_propLivroCampos;
     private javax.swing.JPanel jPanel_propLivroDescricao;
     private javax.swing.JPanel jPanel_propLivroPedidos;
@@ -2056,6 +2074,7 @@ public class JanelaCRUD extends javax.swing.JFrame {
         jDialog_pedidos.setVisible(true);
         
         jFormattedTextField_propPedidoId.setEnabled(false);
+        jFormattedTextField_propPedidoDetalheId.setEnabled(false);
         jComboBox_propPedidoUsuario.setEnabled(false);
         jFormattedTextField_propPedidoData.setEnabled(false);
         jFormattedTextField_propPedidoTipoPag.setEnabled(false);
